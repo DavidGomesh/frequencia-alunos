@@ -3,6 +3,8 @@ package com.ifma.frequencia.runner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.ifma.frequencia.api.controller.MicroController;
+import com.ifma.frequencia.domain.enumerate.TipoMicro;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Pessoa;
@@ -19,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class Run implements CommandLineRunner {
 
     private final SalaService salaService;
-    private final MicroService microcontroladorService;
+    private final MicroService microService;
     private final PessoaService pessoaService;
     private final CartaoService cartaoService;
 
@@ -37,8 +39,13 @@ public class Run implements CommandLineRunner {
         // MICROCONTROLADORES
         Micro micro1 = new Micro();
         micro1.setLocalizacao(sala1);
+
+        Micro micro2 = new Micro();
+        micro2.setLocalizacao(sala1);
+        micro2.setTipoMicro(TipoMicro.ARDUINO);
         
-        microcontroladorService.salvar(micro1);
+        microService.salvar(micro1);
+        microService.salvar(micro2);
         
         // ===================================== 
         // PESSOAS
@@ -77,6 +84,18 @@ public class Run implements CommandLineRunner {
         cartaoService.salvar(cartao2);
         cartaoService.salvar(cartao3);
         cartaoService.salvar(cartao4);
+
+        // LOGS
+        microService.leitura(1, "321");
+        microService.leitura(2, "987");
+        microService.leitura(1, "123");
+        microService.leitura(1, "123312");
+        microService.leitura(1, "123");
+        microService.leitura(2, "123");
+        microService.leitura(2, "987");
+        microService.leitura(1, "asdas");
+        microService.leitura(2, "asdadd");
+        microService.leitura(2, "987");
     }
     
 }

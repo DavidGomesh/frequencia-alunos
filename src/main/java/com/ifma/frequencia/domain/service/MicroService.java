@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.exception.CartaoNotFoundException;
-import com.ifma.frequencia.domain.exception.MicroDesconhecido;
+import com.ifma.frequencia.domain.exception.MicroNotFoundException;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.LogLeitura;
 import com.ifma.frequencia.domain.model.Micro;
@@ -26,18 +26,14 @@ public class MicroService {
         return microrRepository.save(microcontrolador);
     }
 
-    public Optional<Micro> buscarPorId(Integer idMicro){
-        return microrRepository.findById(idMicro);
-    }
-
-    public Micro pegarPorId(Integer idMicro){
-        return buscarPorId(idMicro).orElseThrow(() -> {
-            throw new MicroDesconhecido(idMicro);
+    public Micro buscarPorId(Integer idMicro){
+        return microrRepository.findById(idMicro).orElseThrow(() -> {
+            throw new MicroNotFoundException(idMicro);
         });
     }
 
     public LogLeitura leitura(Integer idMicro, String codigo){
-        Micro micro = pegarPorId(idMicro);
+        Micro micro = buscarPorId(idMicro);
 
         try {
             Cartao cartao = cartaoService.buscarPorCodigo(codigo);

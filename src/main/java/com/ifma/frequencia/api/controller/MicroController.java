@@ -11,7 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ifma.frequencia.api.dto.mapper.MicroMapper;
 import com.ifma.frequencia.api.dto.request.MicrocontroladorRequest;
-import com.ifma.frequencia.domain.exception.MicroDesconhecido;
+import com.ifma.frequencia.domain.exception.MicroNotFoundException;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.service.MicroService;
 
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("microcontroladores")
+@RequestMapping("micros")
 public class MicroController {
 
     private final MicroService microService;
@@ -32,7 +32,7 @@ public class MicroController {
         microService.salvar(micro);
 
         return ResponseEntity.created(UriComponentsBuilder
-            .newInstance().path("/microcontroladores/{id-microcontrolador}")
+            .newInstance().path("/micros/{id-microcontrolador}")
             .buildAndExpand(micro.getIdMicro()).toUri()
         ).build();
     }
@@ -41,22 +41,17 @@ public class MicroController {
     public ResponseEntity<?> leitura(@PathVariable("id-micro") Integer idMicro, @PathVariable("codigo") String codigo){
 
         try {
-
             var log = microService.leitura(idMicro, codigo);
             return ResponseEntity.created(UriComponentsBuilder
                 .newInstance().path("/log-leitura/{id-log-leitura}")
                 .buildAndExpand(log.getIdLogLeitura()).toUri()
             ).build();
             
-        } catch (MicroDesconhecido e) {
-
+        } catch (MicroNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 "Microcontrolador desconhecido!"
             );
 
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Erro desconhecido");
         }
-
     }
 }
