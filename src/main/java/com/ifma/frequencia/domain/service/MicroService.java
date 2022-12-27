@@ -4,7 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ifma.frequencia.domain.exception.CartaoNotFoundException;
 import com.ifma.frequencia.domain.exception.MicroDesconhecido;
+import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.LogLeitura;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.repository.MicroRepository;
@@ -15,7 +17,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MicroService {
     
+    private final CartaoService cartaoService;
     private final LogLeituraService logLeituraService;
+
     private final MicroRepository microrRepository;
 
     public Micro salvar(Micro microcontrolador){
@@ -34,6 +38,13 @@ public class MicroService {
 
     public LogLeitura leitura(Integer idMicro, String codigo){
         Micro micro = pegarPorId(idMicro);
-        return logLeituraService.salvar(micro, codigo);
+
+        try {
+            Cartao cartao = cartaoService.buscarPorCodigo(codigo);
+            return logLeituraService.salvar(micro, cartao);
+
+        } catch (CartaoNotFoundException e) {
+            return logLeituraService.salvar(micro, codigo);
+        }
     }
 }

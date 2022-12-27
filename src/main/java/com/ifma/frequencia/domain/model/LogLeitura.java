@@ -27,7 +27,10 @@ public class LogLeitura {
     private String tipoMicro;
     @NotBlank
     private String modoOperacao;
+    @NotBlank
+    private String localizacao;
 
     @NotBlank
     private String codigo;
+    private String pessoa;
 }
