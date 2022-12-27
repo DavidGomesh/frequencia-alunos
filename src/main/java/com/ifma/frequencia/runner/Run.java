@@ -3,7 +3,6 @@ package com.ifma.frequencia.runner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.ifma.frequencia.api.controller.MicroController;
 import com.ifma.frequencia.domain.enumerate.TipoMicro;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Micro;

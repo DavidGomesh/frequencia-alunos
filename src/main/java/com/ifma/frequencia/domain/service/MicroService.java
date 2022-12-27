@@ -1,7 +1,5 @@
 package com.ifma.frequencia.domain.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.exception.CartaoNotFoundException;
