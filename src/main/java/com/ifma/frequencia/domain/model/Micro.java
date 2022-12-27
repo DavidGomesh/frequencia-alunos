@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Microcontrolador {
+public class Micro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

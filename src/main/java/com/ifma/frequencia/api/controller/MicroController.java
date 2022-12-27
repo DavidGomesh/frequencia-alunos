@@ -7,25 +7,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ifma.frequencia.api.dto.mapper.MicrocontroladorMapper;
+import com.ifma.frequencia.api.dto.mapper.MicroMapper;
 import com.ifma.frequencia.api.dto.request.MicrocontroladorRequest;
-import com.ifma.frequencia.domain.model.Microcontrolador;
-import com.ifma.frequencia.domain.service.MicrocontroladorService;
+import com.ifma.frequencia.domain.model.Micro;
+import com.ifma.frequencia.domain.service.MicroService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("microcontroladores")
-public class MicrocontroladorController {
+public class MicroController {
 
-    private final MicrocontroladorService microService;
-    private final MicrocontroladorMapper microMapper;
+    private final MicroService microService;
+    private final MicroMapper microMapper;
 
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody MicrocontroladorRequest microRequest){
 
-        Microcontrolador micro = microMapper.toEntity(microRequest);
+        Micro micro = microMapper.toEntity(microRequest);
         microService.salvar(micro);
 
         return ResponseEntity.created(UriComponentsBuilder

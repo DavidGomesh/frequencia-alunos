@@ -3,9 +3,9 @@ package com.ifma.frequencia.domain.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ifma.frequencia.domain.model.Microcontrolador;
+import com.ifma.frequencia.domain.model.Micro;
 
 @Repository
-public interface MicrocontroladorRepository extends JpaRepository<Microcontrolador, Integer> {
+public interface MicroRepository extends JpaRepository<Micro, Integer> {
     
 }
