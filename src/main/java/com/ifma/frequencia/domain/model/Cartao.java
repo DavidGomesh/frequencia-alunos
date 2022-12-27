@@ -1,26 +1,28 @@
 package com.ifma.frequencia.domain.model;
 
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 @Entity
-public class Pessoa {
-    
+public class Cartao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPessoa;
+    private Integer idCartao;
 
     @NotBlank
-    private String nome;
+    private String codigo;
 
-    @OneToMany(mappedBy = "pessoa")
-    private Set<Cartao> cartoes;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "fk_pessoa")
+    private Pessoa pessoa;
 }
