@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.MicroRequest;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Sala;
@@ -21,7 +20,7 @@ import com.ifma.frequencia.domain.service.SalaService;
 public class MicroControllerTest {
     
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RequestPerformer requestPerformer;
     
     @Autowired
     private SalaService salaService;
@@ -32,9 +31,7 @@ public class MicroControllerTest {
         MicroRequest microRequest = new MicroRequest();
 
         HttpEntity<MicroRequest> httpEntity = new HttpEntity<>(microRequest);
-        ResponseEntity<?> response = testRestTemplate.exchange(
-            "/micros", HttpMethod.POST, httpEntity, Micro.class
-        );
+        ResponseEntity<?> response = postSalvar(httpEntity);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
@@ -50,10 +47,13 @@ public class MicroControllerTest {
         microRequest.setLocalizacao(sala.getIdSala());
 
         HttpEntity<MicroRequest> httpEntity = new HttpEntity<>(microRequest);
-        ResponseEntity<?> response = testRestTemplate.exchange(
-            "/micros", HttpMethod.POST, httpEntity, Micro.class
-        );
+        ResponseEntity<?> response = postSalvar(httpEntity);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
+
+    private ResponseEntity<?> postSalvar(HttpEntity<MicroRequest> httpEntity){
+        return requestPerformer.post("/micros", httpEntity, Micro.class);
+    }
+    
 }
