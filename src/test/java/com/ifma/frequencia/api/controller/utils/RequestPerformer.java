@@ -1,5 +1,7 @@
 package com.ifma.frequencia.api.controller.utils;
 
+import java.util.Map;
+
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -20,4 +22,9 @@ public class RequestPerformer {
         );
     }
 
+    public ResponseEntity<?> post(String route, Class<?> clazz, Map<String, String> args){
+        return testRestTemplate.postForEntity(
+            route, null, clazz, args
+        );
+    }
 }

@@ -2,6 +2,9 @@ package com.ifma.frequencia.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +17,7 @@ import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.MicroRequest;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Sala;
+import com.ifma.frequencia.domain.service.MicroService;
 import com.ifma.frequencia.domain.service.SalaService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -21,6 +25,9 @@ public class MicroControllerTest {
     
     @Autowired
     private RequestPerformer requestPerformer;
+    
+    @Autowired
+    private MicroService microService;
     
     @Autowired
     private SalaService salaService;
@@ -52,8 +59,27 @@ public class MicroControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
+    @Test
+    void deve_RealizarLeituraCartoes(){
+        
+        Micro micro = new Micro();
+        microService.salvar(micro);
+
+        Map<String, String> args = new HashMap<>();
+        args.put("id-micro", micro.getIdMicro().toString());
+        args.put("codigo", "123");
+
+        ResponseEntity<?> response = postLeitura(args);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
     private ResponseEntity<?> postSalvar(HttpEntity<MicroRequest> httpEntity){
         return requestPerformer.post("/micros", httpEntity, Micro.class);
+    }
+
+    private ResponseEntity<?> postLeitura(Map<String, String> args){
+        return requestPerformer.post("/micros/{id-micro}/leitura/{codigo}", Micro.class, args);
     }
     
 }
