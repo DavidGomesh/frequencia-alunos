@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ifma.frequencia.api.dto.mapper.MicroMapper;
-import com.ifma.frequencia.api.dto.request.MicrocontroladorRequest;
+import com.ifma.frequencia.api.dto.request.MicroRequest;
 import com.ifma.frequencia.domain.exception.MicroNotFoundException;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.service.MicroService;
@@ -26,7 +26,7 @@ public class MicroController {
     private final MicroMapper microMapper;
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody MicrocontroladorRequest microRequest){
+    public ResponseEntity<?> salvar(@RequestBody MicroRequest microRequest){
 
         Micro micro = microMapper.toEntity(microRequest);
         microService.salvar(micro);

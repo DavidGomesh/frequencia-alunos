@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class MicrocontroladorRequest {
+public class MicroRequest {
     
     @NotNull
     private TipoMicro tipoMicro = TipoMicro.ESP32;
