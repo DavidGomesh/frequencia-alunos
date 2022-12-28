@@ -15,6 +15,7 @@ import com.ifma.frequencia.domain.exception.MicroNotFoundException;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.service.MicroService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -26,7 +27,7 @@ public class MicroController {
     private final MicroMapper microMapper;
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody MicroRequest microRequest){
+    public ResponseEntity<?> salvar(@RequestBody @Valid MicroRequest microRequest){
 
         Micro micro = microMapper.toEntity(microRequest);
         microService.salvar(micro);

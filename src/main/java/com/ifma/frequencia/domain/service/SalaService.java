@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.ifma.frequencia.domain.model.Sala;
 import com.ifma.frequencia.domain.repository.SalaRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 @Service
 @AllArgsConstructor
@@ -15,11 +17,11 @@ public class SalaService {
     
     private final SalaRepository salaRepository;
 
-    public Sala salvar(Sala sala){
+    public Sala salvar(@Valid Sala sala){
         return salaRepository.save(sala);
     }
 
-    public Optional<Sala> buscarPorId(Integer idSala){
+    public Optional<Sala> buscarPorId(@NonNull Integer idSala){
         return salaRepository.findById(idSala);
     }
 }

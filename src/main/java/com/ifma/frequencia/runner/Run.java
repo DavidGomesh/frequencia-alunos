@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Run implements CommandLineRunner {
 
+    private final Boolean run = false;
+
     private final SalaService salaService;
     private final MicroService microService;
     private final PessoaService pessoaService;
@@ -27,6 +29,12 @@ public class Run implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        
+        // ===================================== 
+        if(!run){
+            return;
+        }
+        
         // ===================================== 
         // SALAS
         Sala sala1 = new Sala();

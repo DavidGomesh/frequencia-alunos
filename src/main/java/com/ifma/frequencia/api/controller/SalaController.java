@@ -12,6 +12,7 @@ import com.ifma.frequencia.api.dto.request.SalaRequest;
 import com.ifma.frequencia.domain.model.Sala;
 import com.ifma.frequencia.domain.service.SalaService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -23,7 +24,7 @@ public class SalaController {
     private final SalaMapper salaMapper;
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody SalaRequest salaRequest){
+    public ResponseEntity<?> salvar(@RequestBody @Valid SalaRequest salaRequest){
 
         Sala sala = salaMapper.toEntity(salaRequest);
         salaService.salvar(sala);
