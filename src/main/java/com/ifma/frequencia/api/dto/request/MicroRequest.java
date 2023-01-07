@@ -11,5 +11,6 @@ public class MicroRequest {
     @NotNull
     private TipoMicro tipoMicro = TipoMicro.ESP32;
 
+    @NotNull
     private Integer localizacao;
 }

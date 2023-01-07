@@ -30,6 +30,7 @@ public class Micro {
     @Enumerated(EnumType.STRING)
     private ModoOperacao modoOperacao = ModoOperacao.APENAS_LEITURA;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "fk_localizacao")
     private Sala localizacao;

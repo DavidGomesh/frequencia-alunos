@@ -1,9 +1,8 @@
 package com.ifma.frequencia.domain.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
+import com.ifma.frequencia.domain.exception.SalaNotFoundException;
 import com.ifma.frequencia.domain.model.Sala;
 import com.ifma.frequencia.domain.repository.SalaRepository;
 
@@ -21,7 +20,9 @@ public class SalaService {
         return salaRepository.save(sala);
     }
 
-    public Optional<Sala> buscarPorId(@NonNull Integer idSala){
-        return salaRepository.findById(idSala);
+    public Sala buscarPorId(@NonNull Integer idSala){
+        return salaRepository.findById(idSala).orElseThrow(() -> {
+            throw new SalaNotFoundException(idSala);
+        });
     }
 }

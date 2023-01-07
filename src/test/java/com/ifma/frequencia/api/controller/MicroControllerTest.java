@@ -33,18 +33,18 @@ public class MicroControllerTest {
     private SalaService salaService;
 
     @Test
-    void deveSalvar_SemLocalizacao(){
+    void naoDeve_SalvarSemLocalizacao(){
 
         MicroRequest microRequest = new MicroRequest();
 
         HttpEntity<MicroRequest> httpEntity = new HttpEntity<>(microRequest);
         ResponseEntity<?> response = postSalvar(httpEntity);
 
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
-    void deveSalvar_ComLocalizacao(){
+    void deve_SalvarComLocalizacao(){
 
         Sala sala = new Sala();
         sala.setDescricao("P1S1");
@@ -61,8 +61,13 @@ public class MicroControllerTest {
 
     @Test
     void deve_RealizarLeituraCartoes(){
+
+        Sala sala = new Sala();
+        sala.setDescricao("P1S1");
+        salaService.salvar(sala);
         
         Micro micro = new Micro();
+        micro.setLocalizacao(sala);
         microService.salvar(micro);
 
         Map<String, String> args = new HashMap<>();

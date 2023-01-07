@@ -19,11 +19,9 @@ public class MicroMapper {
         
         Micro micro = new Micro();
         micro.setTipoMicro(microRequest.getTipoMicro());
-
-        if(microRequest.getLocalizacao() != null){
-            Sala sala = salaService.buscarPorId(microRequest.getLocalizacao()).orElseThrow();
-            micro.setLocalizacao(sala);
-        }
+        
+        Sala sala = salaService.buscarPorId(microRequest.getLocalizacao());
+        micro.setLocalizacao(sala);
 
         return micro;
     }
