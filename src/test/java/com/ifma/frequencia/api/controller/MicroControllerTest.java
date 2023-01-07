@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -49,12 +48,8 @@ public class MicroControllerTest {
 
     @Test
     void naoDeve_SalvarSemLocalizacao(){
-
         MicroRequest microRequest = new MicroRequest();
-
-        HttpEntity<MicroRequest> httpEntity = new HttpEntity<>(microRequest);
-        ResponseEntity<?> response = postSalvar(httpEntity);
-
+        ResponseEntity<?> response = postSalvar(microRequest);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
@@ -68,8 +63,7 @@ public class MicroControllerTest {
         MicroRequest microRequest = new MicroRequest();
         microRequest.setLocalizacao(sala.getIdSala());
 
-        HttpEntity<MicroRequest> httpEntity = new HttpEntity<>(microRequest);
-        ResponseEntity<?> response = postSalvar(httpEntity);
+        ResponseEntity<?> response = postSalvar(microRequest);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
@@ -94,8 +88,8 @@ public class MicroControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
-    private ResponseEntity<?> postSalvar(HttpEntity<MicroRequest> httpEntity){
-        return requestPerformer.post("/micros", httpEntity, Micro.class);
+    private ResponseEntity<?> postSalvar(Object requestBody){
+        return requestPerformer.post("/micros", requestBody, Micro.class);
     }
 
     private ResponseEntity<?> postLeitura(Map<String, String> args){

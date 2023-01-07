@@ -16,7 +16,8 @@ public class RequestPerformer {
     
     private final TestRestTemplate testRestTemplate;
 
-    public ResponseEntity<?> post(String route, HttpEntity<?> httpEntity, Class<?> clazz){
+    public ResponseEntity<?> post(String route, Object requestBody, Class<?> clazz){
+        HttpEntity<?> httpEntity = new HttpEntity<>(requestBody);
         return testRestTemplate.exchange(
             route, HttpMethod.POST, httpEntity, clazz
         );
