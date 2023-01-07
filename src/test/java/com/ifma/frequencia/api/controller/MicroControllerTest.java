@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,20 +18,34 @@ import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.MicroRequest;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Sala;
+import com.ifma.frequencia.domain.repository.MicroRepository;
+import com.ifma.frequencia.domain.repository.SalaRepository;
 import com.ifma.frequencia.domain.service.MicroService;
 import com.ifma.frequencia.domain.service.SalaService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MicroControllerTest {
-    
+
     @Autowired
     private RequestPerformer requestPerformer;
-    
+
     @Autowired
     private MicroService microService;
-    
+
     @Autowired
     private SalaService salaService;
+
+    @Autowired
+    private MicroRepository microRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
+
+    @AfterEach
+    void afterEach(){
+        microRepository.deleteAll();
+        salaRepository.deleteAll();
+    }
 
     @Test
     void naoDeve_SalvarSemLocalizacao(){
@@ -44,7 +59,7 @@ public class MicroControllerTest {
     }
 
     @Test
-    void deve_SalvarComLocalizacao(){
+    void deve_Salvar(){
 
         Sala sala = new Sala();
         sala.setDescricao("P1S1");
@@ -65,7 +80,7 @@ public class MicroControllerTest {
         Sala sala = new Sala();
         sala.setDescricao("P1S1");
         salaService.salvar(sala);
-        
+
         Micro micro = new Micro();
         micro.setLocalizacao(sala);
         microService.salvar(micro);
@@ -86,5 +101,5 @@ public class MicroControllerTest {
     private ResponseEntity<?> postLeitura(Map<String, String> args){
         return requestPerformer.post("/micros/{id-micro}/leitura/{codigo}", Micro.class, args);
     }
-    
+
 }
