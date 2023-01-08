@@ -93,16 +93,16 @@ public class Run implements CommandLineRunner {
         cartaoService.salvar(cartao4);
 
         // LOGS
-        microService.leitura(1, "321");
-        microService.leitura(2, "987");
-        microService.leitura(1, "123");
-        microService.leitura(1, "123312");
-        microService.leitura(1, "123");
-        microService.leitura(2, "123");
-        microService.leitura(2, "987");
-        microService.leitura(1, "asdas");
-        microService.leitura(2, "asdadd");
-        microService.leitura(2, "987");
+        microService.leitura(micro1, "321");
+        microService.leitura(micro2, "987");
+        microService.leitura(micro1, "123");
+        microService.leitura(micro1, "123312");
+        microService.leitura(micro1, "123");
+        microService.leitura(micro2, "123");
+        microService.leitura(micro2, "987");
+        microService.leitura(micro1, "asdas");
+        microService.leitura(micro2, "asdadd");
+        microService.leitura(micro2, "987");
     }
     
 }

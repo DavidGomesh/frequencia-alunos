@@ -10,6 +10,7 @@ import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.repository.MicroRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 @Service
 @AllArgsConstructor
@@ -30,9 +31,7 @@ public class MicroService {
         });
     }
 
-    public LogLeitura leitura(Integer idMicro, String codigo){
-        Micro micro = buscarPorId(idMicro);
-
+    public LogLeitura leitura(@NonNull Micro micro, @NonNull String codigo){
         try {
             Cartao cartao = cartaoService.buscarPorCodigo(codigo);
             return logLeituraService.salvar(micro, cartao);

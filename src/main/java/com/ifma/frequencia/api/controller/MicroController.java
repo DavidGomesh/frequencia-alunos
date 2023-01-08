@@ -38,11 +38,10 @@ public class MicroController {
         ).build();
     }
 
-    @PostMapping("{id-micro}/leitura/{codigo}")
-    public ResponseEntity<?> leitura(@PathVariable("id-micro") Integer idMicro, @PathVariable("codigo") String codigo){
-
+    @PostMapping("{micro}/leitura/{codigo}")
+    public ResponseEntity<?> leitura(@PathVariable("micro") Micro micro, @PathVariable("codigo") String codigo){
         try {
-            var log = microService.leitura(idMicro, codigo);
+            var log = microService.leitura(micro, codigo);
             return ResponseEntity.created(UriComponentsBuilder
                 .newInstance().path("/log-leitura/{id-log-leitura}")
                 .buildAndExpand(log.getIdLogLeitura()).toUri()
@@ -52,7 +51,6 @@ public class MicroController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 "Microcontrolador desconhecido!"
             );
-
         }
     }
 }
