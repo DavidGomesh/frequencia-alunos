@@ -8,6 +8,7 @@ import com.ifma.frequencia.domain.repository.CartaoRepository;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 @Service
 @AllArgsConstructor
@@ -19,9 +20,9 @@ public class CartaoService {
         return cartaoRepository.save(cartao);
     }
 
-    public Cartao buscarPorCodigo(String codigo){
+    public Cartao buscarPorCodigo(@NonNull String codigo){
         return cartaoRepository.findByCodigo(codigo).orElseThrow(() -> {
-            throw new CartaoNotFoundException("CÓDIGO: " + codigo);
+            throw new CartaoNotFoundException("Código: " + codigo);
         });
     }
 }

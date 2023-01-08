@@ -6,7 +6,9 @@ import com.ifma.frequencia.domain.exception.PessoaNotFoundException;
 import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.repository.PessoaRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 @Service
 @AllArgsConstructor
@@ -14,11 +16,11 @@ public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     
-    public Pessoa salvar(Pessoa pessoa){
+    public Pessoa salvar(@Valid Pessoa pessoa){
         return pessoaRepository.save(pessoa);
     }
 
-    public Pessoa buscarPorId(Integer idPessoa){
+    public Pessoa buscarPorId(@NonNull Integer idPessoa){
         return pessoaRepository.findById(idPessoa).orElseThrow(() -> {
             throw new PessoaNotFoundException(idPessoa);
         });
