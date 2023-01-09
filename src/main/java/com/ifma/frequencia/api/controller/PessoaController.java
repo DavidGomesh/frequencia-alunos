@@ -12,6 +12,7 @@ import com.ifma.frequencia.api.dto.request.PessoaRequest;
 import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.service.PessoaService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -23,7 +24,7 @@ public class PessoaController {
     private final PessoaMapper pessoaMapper;
     
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody PessoaRequest pessoaRequest){
+    public ResponseEntity<?> salvar(@RequestBody @Valid PessoaRequest pessoaRequest){
 
         Pessoa pessoa = pessoaMapper.toEntity(pessoaRequest);
         pessoaService.salvar(pessoa);
