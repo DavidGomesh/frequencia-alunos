@@ -12,6 +12,7 @@ import com.ifma.frequencia.api.dto.request.CartaoRequest;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.service.CartaoService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -23,7 +24,7 @@ public class CartaoController {
     private final CartaoMapper cartaoMapper;
     
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody CartaoRequest cartaoRequest){
+    public ResponseEntity<?> salvar(@RequestBody @Valid CartaoRequest cartaoRequest){
 
         Cartao cartao = cartaoMapper.toEntity(cartaoRequest);
         cartaoService.salvar(cartao);
