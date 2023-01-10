@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,6 @@ import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.repository.CartaoRepository;
 import com.ifma.frequencia.domain.repository.PessoaRepository;
-
-import jakarta.validation.ConstraintViolationException;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CartaoServiceTest {

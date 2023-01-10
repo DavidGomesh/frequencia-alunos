@@ -1,12 +1,13 @@
 package com.ifma.frequencia.domain.service;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.exception.PessoaNotFoundException;
 import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.repository.PessoaRepository;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 

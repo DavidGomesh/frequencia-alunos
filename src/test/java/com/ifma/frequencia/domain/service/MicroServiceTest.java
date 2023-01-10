@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,6 @@ import com.ifma.frequencia.domain.repository.LogLeituraRepository;
 import com.ifma.frequencia.domain.repository.MicroRepository;
 import com.ifma.frequencia.domain.repository.PessoaRepository;
 import com.ifma.frequencia.domain.repository.SalaRepository;
-
-import jakarta.validation.ConstraintViolationException;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MicroServiceTest {

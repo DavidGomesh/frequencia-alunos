@@ -1,5 +1,7 @@
 package com.ifma.frequencia.api.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,6 @@ import com.ifma.frequencia.domain.exception.MicroNotFoundException;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.service.MicroService;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
