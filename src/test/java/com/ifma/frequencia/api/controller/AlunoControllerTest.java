@@ -14,8 +14,8 @@ import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.AlunoRequest;
 import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Pessoa;
+import com.ifma.frequencia.domain.model.generator.PessoaGenerator;
 import com.ifma.frequencia.domain.repository.AlunoRepository;
-import com.ifma.frequencia.domain.repository.PessoaRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class AlunoControllerTest {
@@ -24,15 +24,15 @@ public class AlunoControllerTest {
     private RequestPerformer requestPerformer;
     
     @Autowired
-    private AlunoRepository alunoRepository;
+    private PessoaGenerator pessoaGenerator;
     
     @Autowired
-    private PessoaRepository pessoaRepository;
-
+    private AlunoRepository alunoRepository;
+    
     @AfterEach
     void afterEach(){
         alunoRepository.deleteAll();
-        pessoaRepository.deleteAll();
+        pessoaGenerator.deleteAll();
     }
 
     @Test
@@ -46,10 +46,7 @@ public class AlunoControllerTest {
         response = postSalvar(alunoRequest);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("David");
-        pessoaRepository.save(pessoa);
-
+        Pessoa pessoa = pessoaGenerator.valid().persist().build();
         alunoRequest.setPessoa(pessoa.getIdPessoa());
         response = postSalvar(alunoRequest);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -58,10 +55,8 @@ public class AlunoControllerTest {
     @Test
     void deve_Salvar(){
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("David");
-        pessoaRepository.save(pessoa);
-
+        Pessoa pessoa = pessoaGenerator.valid().persist().build();
+        
         AlunoRequest alunoRequest = new AlunoRequest();
         alunoRequest.setPessoa(pessoa.getIdPessoa());
         alunoRequest.setMatricula("20231SI0001");

@@ -14,8 +14,8 @@ import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.CartaoRequest;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Pessoa;
+import com.ifma.frequencia.domain.model.generator.PessoaGenerator;
 import com.ifma.frequencia.domain.repository.CartaoRepository;
-import com.ifma.frequencia.domain.repository.PessoaRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CartaoControllerTest {
@@ -27,12 +27,12 @@ public class CartaoControllerTest {
     private CartaoRepository cartaoRepository;
     
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaGenerator pessoaGenerator;
 
     @AfterEach
     void afterEach(){
         cartaoRepository.deleteAll();
-        pessoaRepository.deleteAll();
+        pessoaGenerator.deleteAll();
     }
 
     @Test
@@ -53,9 +53,7 @@ public class CartaoControllerTest {
     @Test
     void deve_Salvar(){
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("David");
-        pessoaRepository.save(pessoa);
+        Pessoa pessoa = pessoaGenerator.valid().persist().build();
 
         CartaoRequest cartaoRequest = new CartaoRequest();
         cartaoRequest.setCodigo("Xx Xx Xx");

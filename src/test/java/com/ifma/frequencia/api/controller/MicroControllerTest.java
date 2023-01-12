@@ -17,10 +17,10 @@ import com.ifma.frequencia.api.controller.utils.RequestPerformer;
 import com.ifma.frequencia.api.dto.request.MicroRequest;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Sala;
+import com.ifma.frequencia.domain.model.generator.MicroGenerator;
+import com.ifma.frequencia.domain.model.generator.SalaGenerator;
+import com.ifma.frequencia.domain.repository.LogLeituraRepository;
 import com.ifma.frequencia.domain.repository.MicroRepository;
-import com.ifma.frequencia.domain.repository.SalaRepository;
-import com.ifma.frequencia.domain.service.MicroService;
-import com.ifma.frequencia.domain.service.SalaService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MicroControllerTest {
@@ -29,25 +29,25 @@ public class MicroControllerTest {
     private RequestPerformer requestPerformer;
 
     @Autowired
-    private MicroService microService;
-
-    @Autowired
-    private SalaService salaService;
-
-    @Autowired
     private MicroRepository microRepository;
+    
+    @Autowired
+    private LogLeituraRepository logRepository;
 
     @Autowired
-    private SalaRepository salaRepository;
+    private SalaGenerator salaGenerator;
+    
+    @Autowired
+    private MicroGenerator microGenerator;
 
     @AfterEach
     void afterEach(){
-        microRepository.deleteAll();
-        salaRepository.deleteAll();
+        microGenerator.deleteAll();
+        logRepository.deleteAll();
     }
 
     @Test
-    void naoDeve_SalvarSemLocalizacao(){
+    void naoDeve_SalvarComErroDeValidacao(){
         MicroRequest microRequest = new MicroRequest();
         ResponseEntity<?> response = postSalvar(microRequest);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -56,35 +56,24 @@ public class MicroControllerTest {
     @Test
     void deve_Salvar(){
 
-        Sala sala = new Sala();
-        sala.setDescricao("P1S1");
-        salaService.salvar(sala);
-
+        Sala sala = salaGenerator.valid().persist().build();
         MicroRequest microRequest = new MicroRequest();
         microRequest.setLocalizacao(sala.getIdSala());
 
         ResponseEntity<?> response = postSalvar(microRequest);
-
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        microRepository.deleteAll();
     }
 
     @Test
     void deve_RealizarLeituraCartoes(){
 
-        Sala sala = new Sala();
-        sala.setDescricao("P1S1");
-        salaService.salvar(sala);
-
-        Micro micro = new Micro();
-        micro.setLocalizacao(sala);
-        microService.salvar(micro);
-
+        Micro micro = microGenerator.valid().persist().build();
         Map<String, String> args = new HashMap<>();
         args.put("id-micro", micro.getIdMicro().toString());
         args.put("codigo", "123");
 
         ResponseEntity<?> response = postLeitura(args);
-
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 

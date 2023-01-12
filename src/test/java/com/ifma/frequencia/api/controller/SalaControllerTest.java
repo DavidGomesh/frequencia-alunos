@@ -38,12 +38,10 @@ public class SalaControllerTest {
 
     @Test
     void deveSalvar(){
-
         SalaRequest salaRequest = new SalaRequest();
         salaRequest.setDescricao("P1S1");
 
         ResponseEntity<?> response = postSalvar(salaRequest);
-
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
