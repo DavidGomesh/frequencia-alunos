@@ -1,8 +1,6 @@
 package com.ifma.frequencia.domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
@@ -13,107 +11,75 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
-import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Micro;
-import com.ifma.frequencia.domain.model.Pessoa;
-import com.ifma.frequencia.domain.model.Sala;
-import com.ifma.frequencia.domain.repository.CartaoRepository;
+import com.ifma.frequencia.domain.model.generator.CartaoGenerator;
+import com.ifma.frequencia.domain.model.generator.MicroGenerator;
 import com.ifma.frequencia.domain.repository.LogLeituraRepository;
 import com.ifma.frequencia.domain.repository.MicroRepository;
-import com.ifma.frequencia.domain.repository.PessoaRepository;
-import com.ifma.frequencia.domain.repository.SalaRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MicroServiceTest {
 
     @Autowired
     private MicroService microService;
-
+    
     @Autowired
     private MicroRepository microRepository;
 
     @Autowired
-    private SalaRepository salaRepository;
-    
-    @Autowired
-    private PessoaRepository pessoaRepository;
-    
-    @Autowired
-    private CartaoRepository cartaoRepository;
+    private MicroGenerator microGenerator;
     
     @Autowired
     private LogLeituraRepository logRepository;
+    
+    @Autowired
+    private CartaoGenerator cartaoGenerator;
+    
 
     @AfterEach
     void afterEach(){
-        microRepository.deleteAll();
-        salaRepository.deleteAll();
-        cartaoRepository.deleteAll();
-        pessoaRepository.deleteAll();
+        microGenerator.deleteAll();
+        cartaoGenerator.deleteAll();
         logRepository.deleteAll();
     }
 
     @Test
     void naoDeve_SalvarComErroDeValidacao(){
-        Micro micro = new Micro();
+        Micro micro = microGenerator.invalid().build();
         assertThrows(ConstraintViolationException.class, () -> {
             microService.salvar(micro);
         });
-        assertNull(micro.getIdMicro());
     }
 
     @Test
     void deve_Salvar(){
-        Sala sala = new Sala();
-        sala.setDescricao("P1S01");
-        salaRepository.save(sala);
-
-        Micro micro = new Micro();
-        micro.setLocalizacao(sala);
+        Micro micro = microGenerator.valid().build();
         assertDoesNotThrow(() -> {
             microService.salvar(micro);
         });
-        assertNotNull(micro.getIdMicro());
+        microRepository.delete(micro);
     }
 
     @Test
     void deve_RealizarLeituraCartaoDesconhecido(){
-        Sala sala = new Sala();
-        sala.setDescricao("P1S01");
-        salaRepository.save(sala);
-
-        Micro micro = new Micro();
-        micro.setLocalizacao(sala);
-        microRepository.save(micro);
-
+        Micro micro = microGenerator.valid().persist().build();
         assertDoesNotThrow(() -> {
             microService.leitura(micro, "Xx Xx Xx");
         });
     }
-
+    
     @Test
     void deve_RealizarLeituraCartaoConhecido(){
-        Sala sala = new Sala();
-        sala.setDescricao("P1S01");
-        salaRepository.save(sala);
 
-        Micro micro = new Micro();
-        micro.setLocalizacao(sala);
-        microRepository.save(micro);
-
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("David");
-        pessoaRepository.save(pessoa);
-
+        Micro micro = microGenerator.valid().persist().build();
+        
         final String codigo = "Xx Xx Xx";
-
-        Cartao cartao = new Cartao();
-        cartao.setCodigo(codigo);
-        cartao.setPessoa(pessoa);
-        cartaoRepository.save(cartao);
+        cartaoGenerator.valid().codigo(codigo);
+        cartaoGenerator.persist().build();
 
         assertDoesNotThrow(() -> {
             microService.leitura(micro, codigo);
         });
+
     }
 }

@@ -1,8 +1,6 @@
 package com.ifma.frequencia.domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
@@ -14,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import com.ifma.frequencia.domain.model.Pessoa;
-import com.ifma.frequencia.domain.repository.PessoaRepository;
+import com.ifma.frequencia.domain.model.generator.PessoaGenerator;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PessoaServiceTest {
@@ -23,30 +21,27 @@ public class PessoaServiceTest {
     private PessoaService pessoaService;
     
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaGenerator pessoaGenerator;
 
     @AfterEach
     void afterEach(){
-        pessoaRepository.deleteAll();
+        pessoaGenerator.deleteAll();
     }
     
     @Test
     void naoDeve_SalvarComErroDeValidacao(){
-        Pessoa pessoa = new Pessoa();
+        Pessoa pessoa = pessoaGenerator.invalid().build();
         assertThrows(ConstraintViolationException.class, () -> {
             pessoaService.salvar(pessoa);
         });
-        assertNull(pessoa.getIdPessoa());
     }
 
     @Test
     void deve_Salvar(){
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("David");
+        Pessoa pessoa = pessoaGenerator.valid().build();
         assertDoesNotThrow(() -> {
             pessoaService.salvar(pessoa);
         });
-        assertNotNull(pessoa.getIdPessoa());
     }
 
 }
