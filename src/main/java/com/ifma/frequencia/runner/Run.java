@@ -4,10 +4,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.ifma.frequencia.domain.enumerate.TipoMicro;
+import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Cartao;
+import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.model.Sala;
+import com.ifma.frequencia.domain.repository.AlunoRepository;
+import com.ifma.frequencia.domain.repository.EstagioRespository;
 import com.ifma.frequencia.domain.service.CartaoService;
 import com.ifma.frequencia.domain.service.MicroService;
 import com.ifma.frequencia.domain.service.PessoaService;
@@ -19,12 +23,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Run implements CommandLineRunner {
 
-    private final Boolean run = false;
+    private final Boolean run = true;
 
     private final SalaService salaService;
     private final MicroService microService;
     private final PessoaService pessoaService;
     private final CartaoService cartaoService;
+
+    private final AlunoRepository alunoRepository;
+    private final EstagioRespository estagioRespository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -92,6 +99,21 @@ public class Run implements CommandLineRunner {
         cartaoService.salvar(cartao3);
         cartaoService.salvar(cartao4);
 
+        // ===================================== 
+        // ALUNOS
+        Aluno aluno = new Aluno();
+        aluno.setPessoa(pessoa3);
+        aluno.setMatricula("asodasod");
+        alunoRepository.save(aluno);
+
+        // ===================================== 
+        // ALUNOS
+        Estagio estagio = new Estagio();
+        estagio.setAtivo(true);
+        estagio.setAluno(aluno);
+        estagioRespository.save(estagio);
+
+        // ===================================== 
         // LOGS
         microService.leitura(micro1, "321");
         microService.leitura(micro2, "987");

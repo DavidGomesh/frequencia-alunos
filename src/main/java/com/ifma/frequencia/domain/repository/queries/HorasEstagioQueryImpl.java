@@ -23,7 +23,7 @@ public class HorasEstagioQueryImpl implements HorasEstagioQuery {
 
         JPAQuery<HorasEstagio> query = (jpaQueryFactory.select(qHorasEstagio)
             .from(qHorasEstagio)
-            .where(qHorasEstagio.estagio.eq(estagio))
+            .where(qHorasEstagio.estagio.idEstagio.eq(estagio.getIdEstagio()))
             .where(qHorasEstagio.dataRegistro.eq(LocalDate.now()))
         );
 
