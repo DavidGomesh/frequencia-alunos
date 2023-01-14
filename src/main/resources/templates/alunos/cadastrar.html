@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts\main\layout}">
+    <div layout:fragment="content">
+
+        <input type="hidden" id="id-pessoa">
+        <input type="hidden" id="id-aluno">
+
+        <!-- Dados do aluno -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                <div class="header-title">
+                    <h4 class="card-title">Dados do Aluno</h4>
+                    <!-- <p th:text="${cartao}"></p> -->
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Nome -->
+                    <div class="col-12 col-xl-6">
+                        <form id="form-pessoa" class="needs-validation" novalidate>
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+                                <input class="form-control" id="nome" name="nome" placeholder="Place Holder" required>
+                                <label for="nome">Nome</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Campo obrigatório!</div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Matricula -->
+                    <div class="col-12 col-xl-6">
+                        <form id="form-aluno" class="needs-validation" novalidate>
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+                                <input class="form-control" id="matricula" name="matricula" placeholder="Place Holder" required>
+                                <label for="matricula">Matricula</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Campo obrigatório!</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="btn-salvar" class="btn btn-primary">Salvar</button>
+    
+        <script th:src="@{/js/alunos/cadastrar.js}"></script>
+
+    </div>
+</html>

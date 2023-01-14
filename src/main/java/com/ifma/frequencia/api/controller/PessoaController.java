@@ -33,6 +33,6 @@ public class PessoaController {
         return ResponseEntity.created(UriComponentsBuilder
             .newInstance().path("/pessoas/{id-pessoa}")
             .buildAndExpand(pessoa.getIdPessoa()).toUri()
-        ).build();
+        ).body(pessoa.getIdPessoa());
     }
 }

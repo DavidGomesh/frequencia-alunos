@@ -33,6 +33,6 @@ public class AlunoController {
         return ResponseEntity.created(UriComponentsBuilder
             .newInstance().path("/alunos/{id-aluno}")
             .buildAndExpand(aluno.getIdAluno()).toUri()
-        ).build();
+        ).body(aluno.getIdAluno());
     }
 }
