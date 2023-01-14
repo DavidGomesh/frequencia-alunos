@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+
+<!-- Head -->
+<head th:replace="~{layouts\main\head :: head}"></head>
+
+<body>
+
+    <!-- Loader -->
+    <div th:replace="~{layouts\main\loader :: loader}"></div>
+
+    <!-- Sidebar -->
+    <aside th:replace="~{layouts\main\sidebar :: sidebar}"></aside>
+
+    <!-- Main -->
+    <main th:replace="~{layouts\main\main :: main}"></main>
+    
+    <!-- Page Settings Button -->
+    <a th:replace="~{layouts\main\page-settings :: page-settings}"></a>
+    
+    <!-- Default Scripts -->
+    <div th:replace="~{layouts\main\default-scripts :: default-scripts}"></div>
+
+</body>
+
+</html>
