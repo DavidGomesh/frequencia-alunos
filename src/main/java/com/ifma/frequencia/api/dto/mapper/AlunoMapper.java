@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.ifma.frequencia.api.dto.request.AlunoRequest;
 import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Pessoa;
+import com.ifma.frequencia.domain.service.PessoaService;
 
 import lombok.AllArgsConstructor;
 
@@ -12,11 +13,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AlunoMapper {
 
-    private final PessoaMapper pessoaMapper;
+    private final PessoaService pessoaService;
     
     public Aluno toEntity(AlunoRequest alunoRequest){
 
-        Pessoa pessoa = pessoaMapper.toEntity(alunoRequest.getPessoa());
+        Pessoa pessoa = pessoaService.buscarPorId(alunoRequest.getPessoa());
 
         Aluno aluno = new Aluno();
         aluno.setPessoa(pessoa);

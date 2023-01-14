@@ -9,7 +9,7 @@ import lombok.Data;
 public class AlunoRequest {
 
     @NotNull
-    private PessoaRequest pessoa;
+    private Integer pessoa;
 
     @NotBlank
     private String matricula;
