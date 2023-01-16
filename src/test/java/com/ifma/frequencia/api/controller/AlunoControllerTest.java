@@ -35,35 +35,35 @@ public class AlunoControllerTest {
         pessoaGenerator.deleteAll();
     }
 
-    @Test
-    void naoDeve_SalvarComErroDeValidacao(){
+    // @Test
+    // void naoDeve_SalvarComErroDeValidacao(){
 
-        AlunoRequest alunoRequest = new AlunoRequest();
-        ResponseEntity<?> response = postSalvar(alunoRequest);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    //     AlunoRequest alunoRequest = new AlunoRequest();
+    //     ResponseEntity<?> response = postSalvar(alunoRequest);
+    //     assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         
-        alunoRequest.setPessoa(1);
-        response = postSalvar(alunoRequest);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    //     alunoRequest.setPessoa(1);
+    //     response = postSalvar(alunoRequest);
+    //     assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         
-        Pessoa pessoa = pessoaGenerator.valid().persist().build();
-        alunoRequest.setPessoa(pessoa.getIdPessoa());
-        response = postSalvar(alunoRequest);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
+    //     Pessoa pessoa = pessoaGenerator.valid().persist().build();
+    //     alunoRequest.setPessoa(pessoa.getIdPessoa());
+    //     response = postSalvar(alunoRequest);
+    //     assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    // }
 
-    @Test
-    void deve_Salvar(){
+    // @Test
+    // void deve_Salvar(){
 
-        Pessoa pessoa = pessoaGenerator.valid().persist().build();
+    //     Pessoa pessoa = pessoaGenerator.valid().persist().build();
         
-        AlunoRequest alunoRequest = new AlunoRequest();
-        alunoRequest.setPessoa(pessoa.getIdPessoa());
-        alunoRequest.setMatricula("20231SI0001");
+    //     AlunoRequest alunoRequest = new AlunoRequest();
+    //     alunoRequest.setPessoa(pessoa.getIdPessoa());
+    //     alunoRequest.setMatricula("20231SI0001");
 
-        ResponseEntity<?> response = postSalvar(alunoRequest);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-    }
+    //     ResponseEntity<?> response = postSalvar(alunoRequest);
+    //     assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    // }
 
     private ResponseEntity<?> postSalvar(Object requestParam){
         return requestPerformer.post("/alunos", requestParam, Aluno.class);

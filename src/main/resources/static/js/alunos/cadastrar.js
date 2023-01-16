@@ -1,25 +1,40 @@
 
+/**
+ * Cadastrar alunos
+ * @author David Gomesh
+ */
 document.addEventListener('DOMContentLoaded', () => {
-
-    // IDs
-    const idPessoa = document.querySelector('#id-pessoa')
-    const idAluno = document.querySelector('#id-aluno')
-
-    // FORMS
+    
+    // Não deixa os forms serem submetidos
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', event => {
+            event.preventDefault()
+        })
+    })
+    
+    // Forms
     const formPessoa = document.querySelector('#form-pessoa')
     const formAluno = document.querySelector('#form-aluno')
 
-    // BUTTON ACTIONS
+    // Button Actions
     const btnSalvar = document.querySelector('#btn-salvar')
-    btnSalvar.addEventListener('click', async function() {
-        if(formIsValid()){
-            loaderStart()
-            await salvarInformacoes()
-            loaderStop()
-        }
+    btnSalvar.addEventListener('click', () => {
+        salvar()
     });
 
-    // VALID FORMS
+    // Salvar
+    function salvar(){
+        if(formIsValid()){
+            loaderStart()
+            salvarAluno()
+            .finally(() => {
+                loaderStop()
+                showSuccessAlert()
+            })
+        }
+    }
+
+    // Valid Forms
     function formIsValid(){
         const formPessoaValid = formPessoaIsValid()
         const formAlunoValid = formAlunoIsValid()
@@ -36,22 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return !formAluno.querySelector(':invalid')
     }
 
-    // PERSIST INFOS
-    async function salvarInformacoes(){
-        await salvarPessoa().then(response => idPessoa.value = response)
-        await salvarAluno().then(response => idAluno.value = response)
-    }
-
-    function salvarPessoa(){
-        const pessoa = formPessoaToJson()
-        const init = buildResquestInit(pessoa)
-
-        return (fetch('/pessoas', init)
-            .then(response => response.json())
-            .catch(error => console.error(error))
-        )
-    }
-
+    // Persist Infos
     function salvarAluno(){
         const aluno = formAlunoToJson()   
         const init = buildResquestInit(aluno)
@@ -62,20 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
         )
     }
 
-    // FORM TO JSON
+    // Form To Json
+    function formAlunoToJson(){
+        const formData = new FormData(formAluno)
+        const aluno = Object.fromEntries(formData)
+        aluno['pessoa'] = formPessoaToJson()
+        return aluno
+    }
+
     function formPessoaToJson(){
         const formData = new FormData(formPessoa)
         return Object.fromEntries(formData)
     }
-    
-    function formAlunoToJson(){
-        const formData = new FormData(formAluno)
-        const aluno = Object.fromEntries(formData)
-        aluno['pessoa'] = idPessoa.value
-        return aluno
-    }
 
-    // BUILD INIT FOR POST
+    // Build Init For Post
     function buildResquestInit(object){
         return {
             method: 'POST', 
@@ -84,5 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }
+    }
+
+    // Alerts
+    function showSuccessAlert(){
+        Swal.fire({
+            icon: 'success',
+            title: 'Aluno cadastrado com sucesso!',
+        }).then((result) => {
+            if(result.isConfirmed){
+                location.replace('/')
+            }
+        })
     }
 })

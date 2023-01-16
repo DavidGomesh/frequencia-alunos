@@ -39,7 +39,7 @@
 
                 <!-- Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${#request.contextPath == '' ? 'active' : ''}" aria-current="page" th:href="@{/}">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">
                         <i class="icon">
                             <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -69,6 +69,7 @@
                         </i>
                     </a>
                     <ul class="sub-nav collapse" id="horizontal-menu" data-bs-parent="#sidebar-menu">
+                        <!-- Cadastrar Aluno -->
                         <li class="nav-item">
                             <a class="nav-link " th:href="@{/alunos/cadastrar}">
                               <i class="icon">
@@ -80,58 +81,6 @@
                                 </i>
                               <i class="sidenav-mini-icon"> C </i>
                               <span class="item-name"> Cadastrar </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../dashboard/index-dual-horizontal.html">
-                                <i class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                        <g>
-                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> D </i>
-                                <span class="item-name">Dual Horizontal</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../dashboard/index-dual-compact.html">
-                                <i class="icon svg-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                        <g>
-                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> D </i>                   
-                                <span class="item-name">Dual Compact</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../dashboard/index-boxed.html">
-                                <i class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                        <g>
-                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> B </i>
-                                <span class="item-name">Boxed Horizontal</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../dashboard/index-boxed-fancy.html">
-                                <i class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                        <g>
-                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> B </i>
-                                <span class="item-name">Boxed Fancy</span>
                             </a>
                         </li>
                     </ul>

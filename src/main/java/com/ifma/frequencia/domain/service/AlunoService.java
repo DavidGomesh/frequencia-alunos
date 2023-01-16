@@ -14,9 +14,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AlunoService {
 
+    private final PessoaService pessoaService;
     private final AlunoRepository alunoRepository;
     
     public Aluno salvar(@Valid Aluno aluno){
+        pessoaService.salvar(aluno.getPessoa());
         return alunoRepository.save(aluno);
     }
 
