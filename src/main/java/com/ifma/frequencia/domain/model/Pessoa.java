@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,11 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+// @Data
+@Getter @Setter
 @Entity
-public class Pessoa {
+public class Pessoa implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

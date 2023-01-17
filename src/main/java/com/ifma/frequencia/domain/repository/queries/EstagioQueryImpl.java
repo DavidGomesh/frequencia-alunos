@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.repository.queries;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.ifma.frequencia.domain.model.Aluno;
@@ -27,6 +28,18 @@ public class EstagioQueryImpl implements EstagioQuery {
 
         Estagio estagio = query.fetchOne();
         return Optional.ofNullable(estagio);
+    }
+    
+    @Override
+    public List<Estagio> buscarAtivos() {
+
+        QEstagio qEstagio = QEstagio.estagio;
+        JPAQuery<Estagio> query = (jpaQueryFactory.select(qEstagio)
+            .from(qEstagio)
+            .where(qEstagio.ativo.isTrue())
+        );
+    
+        return query.fetch();
     }
     
 }

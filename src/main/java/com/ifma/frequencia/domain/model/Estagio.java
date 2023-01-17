@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.model;
 
+import java.time.Duration;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,10 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.ifma.frequencia.domain.utils.Duracao;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter
 public class Estagio {
     
     @Id
@@ -31,4 +35,15 @@ public class Estagio {
 
     @OneToMany(mappedBy = "estagio")
     private Set<HorasEstagio> horasEstagio;
+
+    public Duracao horasTotais(){
+        return new Duracao(
+            Duration.ofMillis(horasEstagio.stream()
+                .filter(horas -> horas.getHoraFim() != null)
+                .mapToLong(
+                    horas -> horas.horasTotais().toMillis()
+                ).sum()
+            )
+        );
+    }
 }

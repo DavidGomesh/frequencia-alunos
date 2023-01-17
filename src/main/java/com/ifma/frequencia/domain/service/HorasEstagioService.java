@@ -1,7 +1,10 @@
 package com.ifma.frequencia.domain.service;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -45,5 +48,4 @@ public class HorasEstagioService {
         
         return horasEstagio;
     }
-
 }
