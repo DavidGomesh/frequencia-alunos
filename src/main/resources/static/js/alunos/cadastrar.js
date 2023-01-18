@@ -4,17 +4,19 @@
  * @author David Gomesh
  */
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Não deixa os forms serem submetidos
     document.querySelectorAll('form').forEach(form => {
         form.addEventListener('submit', event => {
             event.preventDefault()
         })
     })
-    
+
     // Forms
     const formPessoa = document.querySelector('#form-pessoa')
     const formAluno = document.querySelector('#form-aluno')
+    const formCartao = document.querySelector('#form-cartao')
+    const formEstPes = document.querySelector('#form-estagio-pesquisa')
 
     // Button Actions
     const btnSalvar = document.querySelector('#btn-salvar')
@@ -36,9 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Valid Forms
     function formIsValid(){
-        const formPessoaValid = formPessoaIsValid()
-        const formAlunoValid = formAlunoIsValid()
-        return formPessoaValid && formAlunoValid
+        const formsValid = [
+            formPessoaIsValid(), formAlunoIsValid(),
+            formCartaoIsValid(), formPesEstIsValid(),
+        ]
+        return !formsValid.includes(false)
     }
 
     function formPessoaIsValid(){
@@ -50,10 +54,20 @@ document.addEventListener('DOMContentLoaded', () => {
         formAluno.classList.add('was-validated')
         return !formAluno.querySelector(':invalid')
     }
+    
+    function formCartaoIsValid(){
+        formCartao.classList.add('was-validated')
+        return !formCartao.querySelector(':invalid')
+    }
+
+    function formPesEstIsValid(){
+        formEstPes.classList.add('was-validated')
+        return !formEstPes.querySelector(':invalid')
+    }
 
     // Persist Infos
     function salvarAluno(){
-        const aluno = formAlunoToJson()   
+        const aluno = formAlunoToJson()
         const init = buildResquestInit(aluno)
 
         return (fetch('/alunos', init)
@@ -67,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(formAluno)
         const aluno = Object.fromEntries(formData)
         aluno['pessoa'] = formPessoaToJson()
+        aluno['cartao'] = formCartaoToJson()['codigo']
         return aluno
     }
 
@@ -74,11 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(formPessoa)
         return Object.fromEntries(formData)
     }
+    
+    function formCartaoToJson(){
+        const formData = new FormData(formCartao)
+        return Object.fromEntries(formData)
+    }
 
     // Build Init For Post
     function buildResquestInit(object){
         return {
-            method: 'POST', 
+            method: 'POST',
             body: JSON.stringify(object),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'

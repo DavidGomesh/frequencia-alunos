@@ -13,4 +13,7 @@ public class AlunoRequest {
 
     @NotBlank
     private String matricula;
+    
+    @NotNull
+    private String cartao;
 }

@@ -9,7 +9,7 @@
         <div class="card" data-aos="fade-up" data-aos-delay="100">
             <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
                 <div class="header-title">
-                    <h4 class="card-title">Dados do Aluno</h4>
+                    <h4 class="card-title">Aluno</h4>
                     <!-- <p th:text="${cartao}"></p> -->
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         <form id="form-aluno" class="needs-validation" novalidate >
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
                                 <input class="form-control" id="matricula" name="matricula" placeholder="Place Holder" required>
-                                <label for="matricula">Matricula</label>
+                                <label for="matricula">Matrícula</label>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Campo obrigatório!</div>
                             </div>
@@ -41,8 +41,71 @@
                 </div>
             </div>
         </div>
+
+        <!-- Dados do cartao -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                <div class="header-title">
+                    <h4 class="card-title">Cartão</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Código -->
+                    <div class="col-12">
+                        <form id="form-cartao" class="needs-validation" novalidate >
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+                                <input class="form-control" id="codigo" name="codigo" th:value="${codigo}" placeholder="Place Holder" required>
+                                <label for="nome">Código</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Campo obrigatório!</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estagio ou pesquisa -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                <div class="header-title">
+                    <h4 class="card-title">Estágio ou Pesquisa</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Código -->
+                    <div class="col-12">
+                        <form id="form-estagio-pesquisa" class="needs-validation" novalidate >
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" id="ck-estagio" name="estagio-pesquisa" required checked>
+                                    <label class="form-check-label" for="ck-estagio">Estágio</label>
+                                    <div class="valid-feedback">Tudo ok!</div>
+                                    <div class="invalid-feedback">Campo obrigatório!</div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input type="radio" class="form-check-input" id="ck-pesquisa" name="estagio-pesquisa" required disabled>
+                                    <label class="form-check-label" for="ck-pesquisa">Pesquisa</label>
+                                    <div class="valid-feedback">Tudo ok!</div>
+                                    <div class="invalid-feedback">Campo obrigatório!</div>
+                                </div>
+
+                                <!-- <input class="form-control" id="codigo" name="codigo" th:value="${codigo}" placeholder="Place Holder" required>
+                                <label for="nome">Código</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Campo obrigatório!</div> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <button id="btn-salvar" class="btn btn-primary">Salvar</button>
+        <button id="btn-salvar" class="btn btn-primary mb-4">Salvar</button>
     
         <script th:src="@{/js/alunos/cadastrar.js}"></script>
 
