@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.HorasEstagio;
-import com.ifma.frequencia.domain.model.builder.HorasEstagioBuilder;
 import com.ifma.frequencia.domain.repository.HorasEstagioRepository;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +21,6 @@ import lombok.AllArgsConstructor;
 public class HorasEstagioService {
 
     private final HorasEstagioRepository horasEstagioRepository;
-    private final HorasEstagioBuilder horasEstagioBuilder;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Transactional

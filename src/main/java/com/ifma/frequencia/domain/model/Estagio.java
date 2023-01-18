@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.Hibernate;
-
 import com.ifma.frequencia.domain.utils.Duracao;
 
 import lombok.Getter;
