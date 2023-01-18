@@ -4,13 +4,17 @@ import java.time.Duration;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.Hibernate;
 
 import com.ifma.frequencia.domain.utils.Duracao;
 
@@ -33,9 +37,10 @@ public class Estagio {
     @NotNull
     private Boolean ativo = true;
 
-    @OneToMany(mappedBy = "estagio")
+    @OneToMany(mappedBy = "estagio", fetch = FetchType.EAGER)
     private Set<HorasEstagio> horasEstagio;
 
+    @Transactional
     public Duracao horasTotais(){
         return new Duracao(
             Duration.ofMillis(horasEstagio.stream()

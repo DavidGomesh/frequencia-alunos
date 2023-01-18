@@ -2,7 +2,6 @@ package com.ifma.frequencia.runner;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.TemporalUnit;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -109,7 +108,7 @@ public class Run implements CommandLineRunner {
         // ===================================== 
         // ALUNOS
         Aluno aluno = new Aluno();
-        aluno.setPessoa(pessoa3);
+        aluno.setPessoa(pessoa1);
         aluno.setMatricula("asodasod");
         alunoRepository.save(aluno);
 
@@ -120,26 +119,26 @@ public class Run implements CommandLineRunner {
         estagio.setAluno(aluno);
         estagioRespository.save(estagio);
 
-        // HorasEstagio horasEstagio = new HorasEstagio();
-        // horasEstagio.setEstagio(estagio);
-        // horasEstagio.setDataRegistro(LocalDate.now());
-        // horasEstagio.setHoraInicio(LocalTime.now().minusHours(2));
-        // // horasEstagio.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
-        // horasEstagioRepository.save(horasEstagio);
+        HorasEstagio horasEstagio = new HorasEstagio();
+        horasEstagio.setEstagio(estagio);
+        horasEstagio.setDataRegistro(LocalDate.now());
+        horasEstagio.setHoraInicio(LocalTime.now().minusHours(2));
+        // horasEstagio.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
+        horasEstagioRepository.save(horasEstagio);
 
-        // HorasEstagio horasEstagio1 = new HorasEstagio();
-        // horasEstagio1.setEstagio(estagio);
-        // horasEstagio1.setDataRegistro(LocalDate.now().plusDays(1));
-        // horasEstagio1.setHoraInicio(LocalTime.now());
-        // horasEstagio1.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
-        // horasEstagioRepository.save(horasEstagio1);
+        HorasEstagio horasEstagio1 = new HorasEstagio();
+        horasEstagio1.setEstagio(estagio);
+        horasEstagio1.setDataRegistro(LocalDate.now().plusDays(1));
+        horasEstagio1.setHoraInicio(LocalTime.now());
+        horasEstagio1.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
+        horasEstagioRepository.save(horasEstagio1);
 
-        // HorasEstagio horasEstagio2 = new HorasEstagio();
-        // horasEstagio2.setEstagio(estagio);
-        // horasEstagio2.setDataRegistro(LocalDate.now().plusDays(2));
-        // horasEstagio2.setHoraInicio(LocalTime.now());
-        // horasEstagio2.setHoraFim(LocalTime.now().plusHours(1).plusMinutes(00).plusSeconds(1));
-        // horasEstagioRepository.save(horasEstagio2);
+        HorasEstagio horasEstagio2 = new HorasEstagio();
+        horasEstagio2.setEstagio(estagio);
+        horasEstagio2.setDataRegistro(LocalDate.now().plusDays(2));
+        horasEstagio2.setHoraInicio(LocalTime.now());
+        horasEstagio2.setHoraFim(LocalTime.now().plusHours(1).plusMinutes(00).plusSeconds(1));
+        horasEstagioRepository.save(horasEstagio2);
 
         // ===================================== 
         // LOGS

@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
@@ -33,9 +34,10 @@ public class HorasEstagioService {
 
         Optional<HorasEstagio> optHorasAtuais = horasEstagioRepository.buscarHorasAtuais(estagio);
         if(optHorasAtuais.isEmpty()){
-            HorasEstagio horasEstagio = (horasEstagioBuilder
-                .estagio(estagio).dataRegistro().horaInicio().build()
-            );
+            HorasEstagio horasEstagio = new HorasEstagio();
+            horasEstagio.setEstagio(estagio);
+            horasEstagio.setDataRegistro(LocalDate.now());
+            horasEstagio.setHoraInicio(LocalTime.now());
             return salvar(horasEstagio);
         }
         
