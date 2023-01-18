@@ -1,14 +1,12 @@
 package com.ifma.frequencia.domain.service;
 
-import java.time.Duration;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.model.Estagio;
@@ -24,6 +22,7 @@ public class HorasEstagioService {
 
     private final HorasEstagioRepository horasEstagioRepository;
     private final HorasEstagioBuilder horasEstagioBuilder;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Transactional
     public HorasEstagio salvar(@Valid HorasEstagio horasEstagio){
@@ -44,6 +43,7 @@ public class HorasEstagioService {
         if(horasEstagio.getHoraFim() == null){
             horasEstagio.setHoraFim(LocalTime.now());
             salvar(horasEstagio);
+            simpMessagingTemplate.convertAndSend("/topic/contagem-horas", "Horas cadastradas!");
         }
         
         return horasEstagio;

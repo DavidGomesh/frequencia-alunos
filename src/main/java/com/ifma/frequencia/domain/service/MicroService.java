@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.service;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.ifma.frequencia.domain.exception.CartaoNotFoundException;
@@ -18,8 +19,9 @@ public class MicroService {
     
     private final CartaoService cartaoService;
     private final LogLeituraService logLeituraService;
-
     private final MicroRepository microrRepository;
+
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     public Micro salvar(Micro microcontrolador){
         return microrRepository.save(microcontrolador);
@@ -32,12 +34,17 @@ public class MicroService {
     }
 
     public LogLeitura leitura(@NonNull Micro micro, @NonNull String codigo){
+
+        LogLeitura log = null;
         try {
             Cartao cartao = cartaoService.buscarPorCodigo(codigo);
-            return logLeituraService.salvar(micro, cartao);
+            log = logLeituraService.salvar(micro, cartao);
 
         } catch (CartaoNotFoundException e) {
-            return logLeituraService.salvar(micro, codigo);
+            log = logLeituraService.salvar(micro, codigo);
         }
+        
+        simpMessagingTemplate.convertAndSend("/topic/leitura", "Cartão lido!");
+        return log;
     }
 }

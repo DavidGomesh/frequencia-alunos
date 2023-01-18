@@ -9,11 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function preparartabelaEstagios(){
+
+        const socket = new SockJS('/mywebsockets')
+        const stompClient = Stomp.over(socket)
+        stompClient.debug = null
+        stompClient.connect({}, () => {
+            stompClient.subscribe('/topic/contagem-horas', () => {
+                atualizarTabelaEstagios()
+            })
+        })
+
         const tabelaEstagios = document.querySelector('#tabela-estagios>tbody')
 
-        // Atualia a tabela a cada 5 segundos
+        // Atualia a tabela
         atualizarTabelaEstagios()
-        setInterval(atualizarTabelaEstagios, 5000)
 
         // Atualiza a tabela
         function atualizarTabelaEstagios(){
@@ -44,12 +53,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function preparartabelaLogs(){
+
+        const socket = new SockJS('/mywebsockets')
+        const stompClient = Stomp.over(socket)
+        stompClient.debug = null
+        stompClient.connect({}, () => {
+            stompClient.subscribe('/topic/leitura', () => {
+                atualizarTabelaLogs()
+            })
+        })
+
         const tabelaLogs = document.querySelector('#tabela-logs>tbody')
         const btnAtualizar = document.querySelector('#btn-atualizar')
     
-        // Atualiza a tabela a cada 5 segundos
+        // Atualiza a tabela 
         atualizarTabelaLogs()
-        setInterval(atualizarTabelaLogs, 5000)
         
         // Botão de Atualizar
         btnAtualizar.addEventListener('click', () => {
