@@ -2,108 +2,98 @@
 <html layout:decorate="~{layouts\main\layout}">
     <div layout:fragment="content">
 
-        <input type="hidden" id="id-pessoa">
         <input type="hidden" id="id-aluno">
 
-        <!-- Dados do aluno -->
-        <div class="card" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
-                <div class="header-title">
-                    <h4 class="card-title">Aluno</h4>
-                    <!-- <p th:text="${cartao}"></p> -->
+        <form id="form-aluno" class="needs-validation" novalidate>
+            <!-- Dados do aluno -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                    <div class="header-title">
+                        <h4 class="card-title">Aluno</h4>
+                        <!-- <p th:text="${cartao}"></p> -->
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Nome -->
-                    <div class="col-12 col-xl-6">
-                        <form id="form-pessoa" class="needs-validation" novalidate >
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Nome -->
+                        <div class="col-12 col-xl-6">
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
                                 <input class="form-control" id="nome" name="nome" placeholder="Place Holder" required>
                                 <label for="nome">Nome</label>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Campo obrigatório!</div>
                             </div>
-                        </form>
-                    </div>
-
-                    <!-- Matricula -->
-                    <div class="col-12 col-xl-6">
-                        <form id="form-aluno" class="needs-validation" novalidate >
-                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
-                                <input class="form-control" id="matricula" name="matricula" placeholder="Place Holder" required>
-                                <label for="matricula">Matrícula</label>
+                        </div>
+    
+                        <!-- Curso -->
+                        <div class="col-12 col-xl-6">
+                            <div class="mb-3 form-group">
+                                <select class="form-select" id="curso" name="curso">
+                                    <option selected disabled>Curso</option>
+                                    <option th:each="curso : ${cursos}" th:value="${curso.idCurso}" th:text="${curso.nome}">NOME DO CURSO</option>
+                                </select>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Campo obrigatório!</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Dados do cartao -->
-        <div class="card" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
-                <div class="header-title">
-                    <h4 class="card-title">Cartão</h4>
+    
+            <!-- Dados do cartao -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                    <div class="header-title">
+                        <h4 class="card-title">Cartão</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Código -->
-                    <div class="col-12">
-                        <form id="form-cartao" class="needs-validation" novalidate >
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Código -->
+                        <div class="col-12">
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
-                                <input class="form-control" id="codigo" name="codigo" th:value="${codigo}" placeholder="Place Holder" required>
-                                <label for="nome">Código</label>
+                                <input class="form-control" id="cartao" name="cartao" th:value="${codigo}" placeholder="Place Holder" required>
+                                <label for="cartao">Código</label>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Campo obrigatório!</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Estagio ou pesquisa -->
-        <div class="card" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
-                <div class="header-title">
-                    <h4 class="card-title">Estágio ou Pesquisa</h4>
+    
+            <!-- Estagio ou pesquisa -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
+                    <div class="header-title">
+                        <h4 class="card-title">Estágio ou Pesquisa</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Código -->
-                    <div class="col-12">
-                        <form id="form-estagio-pesquisa" class="needs-validation" novalidate >
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Código -->
+                        <div class="col-12">
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
-
+    
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" id="ck-estagio" name="estagio-pesquisa" required checked>
                                     <label class="form-check-label" for="ck-estagio">Estágio</label>
                                     <div class="valid-feedback">Tudo ok!</div>
                                     <div class="invalid-feedback">Campo obrigatório!</div>
                                 </div>
-
+    
                                 <div class="form-check mb-3">
                                     <input type="radio" class="form-check-input" id="ck-pesquisa" name="estagio-pesquisa" required disabled>
                                     <label class="form-check-label" for="ck-pesquisa">Pesquisa</label>
                                     <div class="valid-feedback">Tudo ok!</div>
                                     <div class="invalid-feedback">Campo obrigatório!</div>
                                 </div>
-
-                                <!-- <input class="form-control" id="codigo" name="codigo" th:value="${codigo}" placeholder="Place Holder" required>
-                                <label for="nome">Código</label>
-                                <div class="valid-feedback">Tudo ok!</div>
-                                <div class="invalid-feedback">Campo obrigatório!</div> -->
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         
         <button id="btn-salvar" class="btn btn-primary mb-4">Salvar</button>
     

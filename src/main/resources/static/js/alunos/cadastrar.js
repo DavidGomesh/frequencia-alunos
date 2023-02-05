@@ -13,10 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // Forms
-    const formPessoa = document.querySelector('#form-pessoa')
     const formAluno = document.querySelector('#form-aluno')
-    const formCartao = document.querySelector('#form-cartao')
-    const formEstPes = document.querySelector('#form-estagio-pesquisa')
 
     // Button Actions
     const btnSalvar = document.querySelector('#btn-salvar')
@@ -38,16 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Valid Forms
     function formIsValid(){
-        const formsValid = [
-            formPessoaIsValid(), formAlunoIsValid(),
-            formCartaoIsValid(), formPesEstIsValid(),
-        ]
+        const formsValid = [formAlunoIsValid()]
         return !formsValid.includes(false)
-    }
-
-    function formPessoaIsValid(){
-        formPessoa.classList.add('was-validated')
-        return !formPessoa.querySelector(':invalid')
     }
 
     function formAlunoIsValid(){
@@ -55,16 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return !formAluno.querySelector(':invalid')
     }
     
-    function formCartaoIsValid(){
-        formCartao.classList.add('was-validated')
-        return !formCartao.querySelector(':invalid')
-    }
-
-    function formPesEstIsValid(){
-        formEstPes.classList.add('was-validated')
-        return !formEstPes.querySelector(':invalid')
-    }
-
     // Persist Infos
     function salvarAluno(){
         const aluno = formAlunoToJson()
@@ -80,19 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function formAlunoToJson(){
         const formData = new FormData(formAluno)
         const aluno = Object.fromEntries(formData)
-        aluno['pessoa'] = formPessoaToJson()
-        aluno['cartao'] = formCartaoToJson()['codigo']
         return aluno
-    }
-
-    function formPessoaToJson(){
-        const formData = new FormData(formPessoa)
-        return Object.fromEntries(formData)
-    }
-    
-    function formCartaoToJson(){
-        const formData = new FormData(formCartao)
-        return Object.fromEntries(formData)
     }
 
     // Build Init For Post

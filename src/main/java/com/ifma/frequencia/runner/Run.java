@@ -69,20 +69,24 @@ public class Run implements CommandLineRunner {
         // ===================================== 
         // CURSOS
         Curso curso1 = new Curso();
-        curso1.setNome("Informática");
+        curso1.setNome("Técnico em Informática");
 
         Curso curso2 = new Curso();
-        curso2.setNome("Química");
+        curso2.setNome("Técnico em Química");
+
+        Curso curso3 = new Curso();
+        curso3.setNome("Graduação em Sistemas de Informação");
 
         cursoRepository.save(curso1);
         cursoRepository.save(curso2);
+        cursoRepository.save(curso3);
 
         // ===================================== 
         // ALUNOS
         Aluno aluno1 = new Aluno();
         aluno1.setNome("David Gomesh");
         aluno1.setCartao("123");
-        aluno1.setCurso(curso1);
+        aluno1.setCurso(curso3);
         
         Aluno aluno2 = new Aluno();
         aluno2.setNome("Ana Beatriz");
