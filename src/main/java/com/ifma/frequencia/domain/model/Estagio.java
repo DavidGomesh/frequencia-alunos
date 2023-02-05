@@ -43,9 +43,8 @@ public class Estagio {
         return new Duracao(
             Duration.ofMillis(horasEstagio.stream()
                 .filter(horas -> horas.getHoraFim() != null)
-                .mapToLong(
-                    horas -> horas.horasTotais().toMillis()
-                ).sum()
+                .mapToLong(horas -> horas.horasTotais().toMillis())
+                .sum()
             )
         );
     }

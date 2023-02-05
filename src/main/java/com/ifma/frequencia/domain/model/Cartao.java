@@ -1,20 +1,19 @@
 package com.ifma.frequencia.domain.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
-// @Data
-@Getter @Setter
 @Entity
+@Getter @Setter
 public class Cartao {
 
     @Id
@@ -24,8 +23,6 @@ public class Cartao {
     @NotBlank
     private String codigo;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "fk_pessoa")
-    private Pessoa pessoa;
+    @OneToMany(mappedBy = "cartao")
+    private Set<Aluno> alunos;
 }
