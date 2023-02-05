@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         function construirTabela(estagios = []){
             return estagios.reduce((prevTr, estagio) => {
                 return prevTr += `<tr>
-                    <td>${estagio.aluno.pessoa.nome}</td>
-                    <td>${estagio.aluno.matricula}</td>
+                    <td>${estagio.aluno.nome}</td>
+                    <td>${estagio.aluno.curso}</td>
                     <td class="fw-bold">${tdHorasTotais(estagio.horasTotais)}</td>
                 </tr>`
             }, '')
@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cria o TD das Horas Totais
         function tdHorasTotais(horasTotais){
-            return `${doisDigitos(horasTotais.horas)}:${doisDigitos(horasTotais.minutos)}:${doisDigitos(horasTotais.segundos)}`
+            return `${doisDigitos(horasTotais.horas)}h ${doisDigitos(horasTotais.minutos)}m ${doisDigitos(horasTotais.segundos)}s`
+            // return `${doisDigitos(horasTotais.horas)}:${doisDigitos(horasTotais.minutos)}:${doisDigitos(horasTotais.segundos)}`
         }
 
         function doisDigitos(number){
