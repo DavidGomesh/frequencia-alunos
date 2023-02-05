@@ -2,7 +2,7 @@ package com.ifma.frequencia.domain.service;
 
 import org.springframework.stereotype.Service;
 
-import com.ifma.frequencia.domain.model.Cartao;
+import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.LogLeitura;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.repository.LogLeituraRepository;
@@ -20,8 +20,8 @@ public class LogLeituraService {
         return logLeituraRepository.save(log);
     }
 
-    public LogLeitura salvar(Micro micro, Cartao cartao){
-        LogLeitura log = construirLogLeitura(micro, cartao);
+    public LogLeitura salvar(Micro micro, Aluno aluno){
+        LogLeitura log = construirLogLeitura(micro, aluno);
         return logLeituraRepository.save(log);
     }
 
@@ -32,11 +32,11 @@ public class LogLeituraService {
         return log;
     }
     
-    private LogLeitura construirLogLeitura(Micro micro, Cartao cartao) {
+    private LogLeitura construirLogLeitura(Micro micro, Aluno aluno) {
 
         LogLeitura log = new LogLeitura();
         adicionarMicro(log, micro);
-        adicionarCartao(log, cartao);
+        adicionarCartao(log, aluno);
         return log;
     }
 
@@ -47,9 +47,9 @@ public class LogLeituraService {
         log.setLocalizacao(micro.getLocalizacao().getDescricao());
     }
 
-    private void adicionarCartao(LogLeitura log, Cartao cartao){
-        log.setCodigo(cartao.getCodigo());
-        log.setPessoa(cartao.getAluno().getNome());
+    private void adicionarCartao(LogLeitura log, Aluno aluno){
+        log.setCodigo(aluno.getCartao());
+        log.setPessoa(aluno.getNome());
     }
 
     private void adicionarCartao(LogLeitura log, String codigo){
