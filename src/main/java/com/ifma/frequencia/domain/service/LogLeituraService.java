@@ -2,7 +2,7 @@ package com.ifma.frequencia.domain.service;
 
 import org.springframework.stereotype.Service;
 
-import com.ifma.frequencia.domain.model.Cartao;
+import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.LogLeitura;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.repository.LogLeituraRepository;
@@ -17,31 +17,26 @@ public class LogLeituraService {
     
     public LogLeitura salvar(Micro micro, String codigo){
         LogLeitura log = construirLogLeitura(micro, codigo);
-        return salvar(log);
+        return logLeituraRepository.save(log);
     }
 
-    public LogLeitura salvar(Micro micro, Cartao cartao){
-        LogLeitura log = construirLogLeitura(micro, cartao);
-        return salvar(log);
-    }
-    
-    private LogLeitura salvar(LogLeitura log){
+    public LogLeitura salvar(Micro micro, Aluno aluno){
+        LogLeitura log = construirLogLeitura(micro, aluno);
         return logLeituraRepository.save(log);
     }
 
     private LogLeitura construirLogLeitura(Micro micro, String codigo){
-
         LogLeitura log = new LogLeitura();
         adicionarMicro(log, micro);
         adicionarCartao(log, codigo);
         return log;
     }
     
-    private LogLeitura construirLogLeitura(Micro micro, Cartao cartao) {
+    private LogLeitura construirLogLeitura(Micro micro, Aluno aluno) {
 
         LogLeitura log = new LogLeitura();
         adicionarMicro(log, micro);
-        adicionarCartao(log, cartao);
+        adicionarCartao(log, aluno);
         return log;
     }
 
@@ -52,9 +47,9 @@ public class LogLeituraService {
         log.setLocalizacao(micro.getLocalizacao().getDescricao());
     }
 
-    private void adicionarCartao(LogLeitura log, Cartao cartao){
-        log.setCodigo(cartao.getCodigo());
-        log.setPessoa(cartao.getPessoa().getNome());
+    private void adicionarCartao(LogLeitura log, Aluno aluno){
+        log.setCodigo(aluno.getCartao());
+        log.setPessoa(aluno.getNome());
     }
 
     private void adicionarCartao(LogLeitura log, String codigo){

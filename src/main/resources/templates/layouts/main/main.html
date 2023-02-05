@@ -1,0 +1,18 @@
+<main class="main-content" th:fragment="main">
+
+    <div class="position-relative iq-banner">
+      <!-- Page Header -->
+      <nav th:replace="layouts\main\page-header :: page-header"></nav>
+
+      <!-- Content Header -->
+      <div th:replace="layouts\main\content-header :: content-header"></div>
+
+    </div>
+
+    <!-- Page Content -->
+    <div class="conatiner-fluid content-inner mt-n5 py-0" layout:fragment="content"></div>
+
+    <!-- Footer -->
+    <footer th:replace="layouts\main\footer :: footer"></footer>
+    
+</main>

@@ -1,17 +1,25 @@
 package com.ifma.frequencia.runner;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.ifma.frequencia.domain.enumerate.TipoMicro;
-import com.ifma.frequencia.domain.model.Cartao;
+import com.ifma.frequencia.domain.model.Aluno;
+import com.ifma.frequencia.domain.model.Curso;
+import com.ifma.frequencia.domain.model.Estagio;
+import com.ifma.frequencia.domain.model.HorasEstagio;
 import com.ifma.frequencia.domain.model.Micro;
-import com.ifma.frequencia.domain.model.Pessoa;
 import com.ifma.frequencia.domain.model.Sala;
-import com.ifma.frequencia.domain.service.CartaoService;
+import com.ifma.frequencia.domain.repository.AlunoRepository;
+import com.ifma.frequencia.domain.repository.CursoRepository;
+import com.ifma.frequencia.domain.repository.EstagioRespository;
+import com.ifma.frequencia.domain.repository.HorasEstagioRepository;
+import com.ifma.frequencia.domain.repository.MicroRepository;
+import com.ifma.frequencia.domain.repository.SalaRepository;
 import com.ifma.frequencia.domain.service.MicroService;
-import com.ifma.frequencia.domain.service.PessoaService;
-import com.ifma.frequencia.domain.service.SalaService;
 
 import lombok.AllArgsConstructor;
 
@@ -19,12 +27,16 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Run implements CommandLineRunner {
 
-    private final Boolean run = false;
+    private final Boolean run = true;
 
-    private final SalaService salaService;
     private final MicroService microService;
-    private final PessoaService pessoaService;
-    private final CartaoService cartaoService;
+
+    private final AlunoRepository alunoRepository;
+    private final EstagioRespository estagioRespository;
+    private final HorasEstagioRepository horasEstagioRepository;
+    private final SalaRepository salaRepository;
+    private final MicroRepository microRepository;
+    private final CursoRepository cursoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -40,7 +52,7 @@ public class Run implements CommandLineRunner {
         Sala sala1 = new Sala();
         sala1.setDescricao("S01P03");
         
-        salaService.salvar(sala1);
+        salaRepository.save(sala1);
         
         // ===================================== 
         // MICROCONTROLADORES
@@ -51,58 +63,84 @@ public class Run implements CommandLineRunner {
         micro2.setLocalizacao(sala1);
         micro2.setTipoMicro(TipoMicro.ARDUINO);
         
-        microService.salvar(micro1);
-        microService.salvar(micro2);
+        microRepository.save(micro1);
+        microRepository.save(micro2);
+
+        // ===================================== 
+        // CURSOS
+        Curso curso1 = new Curso();
+        curso1.setNome("Técnico em Informática");
+
+        Curso curso2 = new Curso();
+        curso2.setNome("Técnico em Química");
+
+        Curso curso3 = new Curso();
+        curso3.setNome("Graduação em Sistemas de Informação");
+
+        cursoRepository.save(curso1);
+        cursoRepository.save(curso2);
+        cursoRepository.save(curso3);
+
+        // ===================================== 
+        // ALUNOS
+        Aluno aluno1 = new Aluno();
+        aluno1.setNome("David Gomesh");
+        aluno1.setCartao("123");
+        aluno1.setCurso(curso3);
         
+        Aluno aluno2 = new Aluno();
+        aluno2.setNome("Ana Beatriz");
+        aluno2.setCartao("ASD");
+        aluno2.setCurso(curso1);
+        
+        Aluno aluno3 = new Aluno();
+        aluno3.setNome("Marcos Oliveira");
+        aluno3.setCartao("321");
+        aluno3.setCurso(curso2);
+
+        alunoRepository.save(aluno1);
+        alunoRepository.save(aluno2);
+        alunoRepository.save(aluno3);
+
         // ===================================== 
-        // PESSOAS
-        Pessoa pessoa1 = new Pessoa();
-        pessoa1.setNome("David Gomesh");
+        // ALUNOS
+        Estagio estagio = new Estagio();
+        estagio.setAtivo(true);
+        estagio.setAluno(aluno1);
+        estagioRespository.save(estagio);
 
-        Pessoa pessoa2 = new Pessoa();
-        pessoa2.setNome("Ana Beatriz");
+        HorasEstagio horasEstagio = new HorasEstagio();
+        horasEstagio.setEstagio(estagio);
+        horasEstagio.setDataRegistro(LocalDate.now());
+        horasEstagio.setHoraInicio(LocalTime.now().minusHours(2));
+        horasEstagioRepository.save(horasEstagio);
 
-        Pessoa pessoa3 = new Pessoa();
-        pessoa3.setNome("Marcos Oliveira");
+        HorasEstagio horasEstagio1 = new HorasEstagio();
+        horasEstagio1.setEstagio(estagio);
+        horasEstagio1.setDataRegistro(LocalDate.now().plusDays(1));
+        horasEstagio1.setHoraInicio(LocalTime.now());
+        horasEstagio1.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
+        horasEstagioRepository.save(horasEstagio1);
 
-        pessoaService.salvar(pessoa1);
-        pessoaService.salvar(pessoa2);
-        pessoaService.salvar(pessoa3);
+        HorasEstagio horasEstagio2 = new HorasEstagio();
+        horasEstagio2.setEstagio(estagio);
+        horasEstagio2.setDataRegistro(LocalDate.now().plusDays(2));
+        horasEstagio2.setHoraInicio(LocalTime.now());
+        horasEstagio2.setHoraFim(LocalTime.now().plusHours(1).plusMinutes(00).plusSeconds(1));
+        horasEstagioRepository.save(horasEstagio2);
 
         // ===================================== 
-        // CARTOES
-        Cartao cartao1 = new Cartao();
-        cartao1.setCodigo("123");
-        cartao1.setPessoa(pessoa1);
-
-        Cartao cartao2 = new Cartao();
-        cartao2.setCodigo("ASD");
-        cartao2.setPessoa(pessoa1);
-
-        Cartao cartao3 = new Cartao();
-        cartao3.setCodigo("321");
-        cartao3.setPessoa(pessoa2);
-
-        Cartao cartao4 = new Cartao();
-        cartao4.setCodigo("987");
-        cartao4.setPessoa(pessoa3);
-
-        cartaoService.salvar(cartao1);
-        cartaoService.salvar(cartao2);
-        cartaoService.salvar(cartao3);
-        cartaoService.salvar(cartao4);
-
         // LOGS
-        microService.leitura(1, "321");
-        microService.leitura(2, "987");
-        microService.leitura(1, "123");
-        microService.leitura(1, "123312");
-        microService.leitura(1, "123");
-        microService.leitura(2, "123");
-        microService.leitura(2, "987");
-        microService.leitura(1, "asdas");
-        microService.leitura(2, "asdadd");
-        microService.leitura(2, "987");
+        microService.leitura(micro1, "321");
+        microService.leitura(micro2, "987");
+        microService.leitura(micro1, "123");
+        microService.leitura(micro1, "123312");
+        microService.leitura(micro1, "123");
+        microService.leitura(micro2, "123");
+        microService.leitura(micro2, "987");
+        microService.leitura(micro1, "asdas");
+        microService.leitura(micro2, "asdadd");
+        microService.leitura(micro2, "987");
     }
     
 }
