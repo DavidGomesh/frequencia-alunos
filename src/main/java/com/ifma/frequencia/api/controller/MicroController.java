@@ -22,6 +22,7 @@ import com.ifma.frequencia.domain.model.HorasEstagio;
 import com.ifma.frequencia.domain.model.Micro;
 import com.ifma.frequencia.domain.repository.AlunoRepository;
 import com.ifma.frequencia.domain.repository.EstagioRespository;
+import com.ifma.frequencia.domain.repository.MicroRepository;
 import com.ifma.frequencia.domain.service.HorasEstagioService;
 import com.ifma.frequencia.domain.service.MicroService;
 
@@ -35,6 +36,7 @@ public class MicroController {
     private final MicroService microService;
     private final HorasEstagioService horasEstagioService;
 
+    private final MicroRepository microRepository;
     private final AlunoRepository alunoRepository;
     private final EstagioRespository estagioRespository;
 
@@ -44,7 +46,7 @@ public class MicroController {
     public ResponseEntity<?> salvar(@RequestBody @Valid MicroRequest microRequest){
 
         Micro micro = microMapper.toEntity(microRequest);
-        microService.salvar(micro);
+        microRepository.save(micro);
 
         return ResponseEntity.created(UriComponentsBuilder
             .newInstance().path("/micros/{id-microcontrolador}")

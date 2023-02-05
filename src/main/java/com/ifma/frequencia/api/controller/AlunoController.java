@@ -12,11 +12,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.ifma.frequencia.api.dto.mapper.AlunoMapper;
 import com.ifma.frequencia.api.dto.request.AlunoRequest;
 import com.ifma.frequencia.domain.model.Aluno;
-import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.Estagio;
-import com.ifma.frequencia.domain.service.AlunoService;
-import com.ifma.frequencia.domain.service.CartaoService;
-import com.ifma.frequencia.domain.service.EstagioService;
+import com.ifma.frequencia.domain.repository.AlunoRepository;
+import com.ifma.frequencia.domain.repository.EstagioRespository;
 
 import lombok.AllArgsConstructor;
 
@@ -25,9 +23,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("alunos")
 public class AlunoController {
 
-    private final AlunoService alunoService;
-    private final CartaoService cartaoService;
-    private final EstagioService estagioService;
+    private final AlunoRepository alunoRepository;
+    private final EstagioRespository estagioRespository;
 
     private final AlunoMapper alunoMapper;
     
@@ -35,17 +32,13 @@ public class AlunoController {
     public ResponseEntity<?> salvar(@RequestBody @Valid AlunoRequest alunoRequest){
 
         Aluno aluno = alunoMapper.toEntity(alunoRequest);
-        alunoService.salvar(aluno);
+        alunoRepository.save(aluno);
 
-        Cartao cartao = new Cartao();
-        cartao.setCodigo(alunoRequest.getCartao());
-        cartao.setPessoa(aluno.getPessoa());
-        cartaoService.salvar(cartao);
-
+        /** TODO: Colocar em um service */
         Estagio estagio = new Estagio();
         estagio.setAluno(aluno);
         estagio.setAtivo(true);
-        estagioService.salvar(estagio);
+        estagioRespository.save(estagio);
 
         return ResponseEntity.created(UriComponentsBuilder
             .newInstance().path("/alunos/{id-aluno}")
