@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,29 +20,25 @@ public class HorasEstagioService {
     private final HorasEstagioRepository horasEstagioRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Transactional
-    public HorasEstagio salvar(@Valid HorasEstagio horasEstagio){
-        return horasEstagioRepository.save(horasEstagio);
-    }
-
     public HorasEstagio cadastrarHora(Estagio estagio){
 
+        HorasEstagio horasEstagio = null;
         Optional<HorasEstagio> optHorasAtuais = horasEstagioRepository.buscarHorasAtuais(estagio);
+
         if(optHorasAtuais.isEmpty()){
-            HorasEstagio horasEstagio = new HorasEstagio();
+            horasEstagio = new HorasEstagio();
             horasEstagio.setEstagio(estagio);
             horasEstagio.setDataRegistro(LocalDate.now());
             horasEstagio.setHoraInicio(LocalTime.now());
-            return salvar(horasEstagio);
+            return horasEstagioRepository.save(horasEstagio);
         }
         
-        HorasEstagio horasEstagio = optHorasAtuais.get();
+        horasEstagio = optHorasAtuais.get();
         if(horasEstagio.getHoraFim() == null){
             horasEstagio.setHoraFim(LocalTime.now());
-            salvar(horasEstagio);
             simpMessagingTemplate.convertAndSend("/topic/contagem-horas", "Horas cadastradas!");
         }
-        
-        return horasEstagio;
+
+        return horasEstagioRepository.save(horasEstagio);
     }
 }

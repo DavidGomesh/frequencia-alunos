@@ -17,20 +17,15 @@ public class LogLeituraService {
     
     public LogLeitura salvar(Micro micro, String codigo){
         LogLeitura log = construirLogLeitura(micro, codigo);
-        return salvar(log);
+        return logLeituraRepository.save(log);
     }
 
     public LogLeitura salvar(Micro micro, Cartao cartao){
         LogLeitura log = construirLogLeitura(micro, cartao);
-        return salvar(log);
-    }
-    
-    private LogLeitura salvar(LogLeitura log){
         return logLeituraRepository.save(log);
     }
 
     private LogLeitura construirLogLeitura(Micro micro, String codigo){
-
         LogLeitura log = new LogLeitura();
         adicionarMicro(log, micro);
         adicionarCartao(log, codigo);
@@ -54,7 +49,7 @@ public class LogLeituraService {
 
     private void adicionarCartao(LogLeitura log, Cartao cartao){
         log.setCodigo(cartao.getCodigo());
-        log.setPessoa(cartao.getPessoa().getNome());
+        log.setPessoa(cartao.getAluno().getNome());
     }
 
     private void adicionarCartao(LogLeitura log, String codigo){
