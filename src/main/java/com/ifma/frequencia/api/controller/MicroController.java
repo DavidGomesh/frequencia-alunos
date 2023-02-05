@@ -70,11 +70,11 @@ public class MicroController {
         }
     }
 
-    @PostMapping("{micro}/estagio/{codigo}")
-    public ResponseEntity<?> cadastrarHorasEstagio(@PathVariable("micro") Micro micro, @PathVariable("codigo") String codigo){
+    @PostMapping("{micro}/estagio/{cartao}")
+    public ResponseEntity<?> cadastrarHorasEstagio(@PathVariable("micro") Micro micro, @PathVariable("cartao") String cartao){
 
-        microService.leitura(micro, codigo);
-        Optional<Aluno> optAluno = alunoRepository.buscarPorCodigoCartao(codigo);
+        microService.leitura(micro, cartao);
+        Optional<Aluno> optAluno = alunoRepository.findByCartao(cartao);
         if(optAluno.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 "Nenhum aluno cadastrado com esse cartão!"
