@@ -18,8 +18,8 @@ public class LogLeituraQueryImpl implements LogLeituraQuery {
     public List<LogLeitura> buscarUltimos() {
         
         QLogLeitura qLogLeitura = QLogLeitura.logLeitura;
-        JPAQuery<LogLeitura> query = (jpaQueryFactory.select(qLogLeitura)
-            .from(qLogLeitura)
+        JPAQuery<LogLeitura> query = (jpaQueryFactory
+            .select(qLogLeitura).from(qLogLeitura)
             .orderBy(qLogLeitura.dataHora.desc())
             .limit(10)
         );

@@ -2,8 +2,6 @@ package com.ifma.frequencia.domain.repository.queries;
 
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
-
 import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Cartao;
 import com.ifma.frequencia.domain.model.QAluno;
@@ -28,14 +26,11 @@ public class AlunoQueryImpl implements AlunoQuery {
         }
 
         Cartao cartao = optCartao.get();
-        Hibernate.initialize(cartao.getPessoa());
 
         QAluno qAluno = QAluno.aluno;
-        JPAQuery<Aluno> query = (jpaQueryFactory.select(qAluno)
-            .from(qAluno)
-            .where(qAluno.pessoa.idPessoa.eq(
-                cartao.getPessoa().getIdPessoa()
-            ))
+        JPAQuery<Aluno> query = (jpaQueryFactory
+            .select(qAluno).from(qAluno)
+            .where(qAluno.cartao.eq(cartao))
         );
 
         Aluno aluno = query.fetchOne();

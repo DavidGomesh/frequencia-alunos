@@ -20,9 +20,9 @@ public class EstagioQueryImpl implements EstagioQuery {
     public Optional<Estagio> buscarAtivosPorAluno(Aluno aluno) {
 
         QEstagio qEstagio = QEstagio.estagio;
-        JPAQuery<Estagio> query = (jpaQueryFactory.select(qEstagio)
-            .from(qEstagio)
-            .where(qEstagio.aluno.idAluno.eq(aluno.getIdAluno()))
+        JPAQuery<Estagio> query = (jpaQueryFactory
+            .select(qEstagio).from(qEstagio)
+            .where(qEstagio.aluno.eq(aluno))
             .where(qEstagio.ativo.isTrue())
         );
 
@@ -34,8 +34,8 @@ public class EstagioQueryImpl implements EstagioQuery {
     public List<Estagio> buscarAtivos() {
 
         QEstagio qEstagio = QEstagio.estagio;
-        JPAQuery<Estagio> query = (jpaQueryFactory.select(qEstagio)
-            .from(qEstagio)
+        JPAQuery<Estagio> query = (jpaQueryFactory
+            .select(qEstagio).from(qEstagio)
             .where(qEstagio.ativo.isTrue())
         );
     

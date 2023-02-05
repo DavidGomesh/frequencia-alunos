@@ -21,9 +21,9 @@ public class HorasEstagioQueryImpl implements HorasEstagioQuery {
     public Optional<HorasEstagio> buscarHorasAtuais(Estagio estagio) {
 
         QHorasEstagio qHorasEstagio = QHorasEstagio.horasEstagio;
-        JPAQuery<HorasEstagio> query = (jpaQueryFactory.select(qHorasEstagio)
-            .from(qHorasEstagio)
-            .where(qHorasEstagio.estagio.idEstagio.eq(estagio.getIdEstagio()))
+        JPAQuery<HorasEstagio> query = (jpaQueryFactory
+            .select(qHorasEstagio).from(qHorasEstagio)
+            .where(qHorasEstagio.estagio.eq(estagio))
             .where(qHorasEstagio.dataRegistro.eq(LocalDate.now()))
         );
 
@@ -35,14 +35,11 @@ public class HorasEstagioQueryImpl implements HorasEstagioQuery {
     public List<HorasEstagio> buscarHoras(Estagio estagio) {
 
         QHorasEstagio qHorasEstagio = QHorasEstagio.horasEstagio;
-        JPAQuery<HorasEstagio> query = (jpaQueryFactory.select(qHorasEstagio)
-            .from(qHorasEstagio)
-            .where(qHorasEstagio.estagio.idEstagio.eq(estagio.getIdEstagio()))
+        JPAQuery<HorasEstagio> query = (jpaQueryFactory
+            .select(qHorasEstagio).from(qHorasEstagio)
+            .where(qHorasEstagio.estagio.eq(estagio))
         );
 
         return query.fetch();
     }
-
-
-
 }
