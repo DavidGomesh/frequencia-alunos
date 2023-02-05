@@ -1,12 +1,14 @@
 package com.ifma.frequencia.api.dto.mapper;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import com.ifma.frequencia.api.dto.request.AlunoRequest;
 import com.ifma.frequencia.api.dto.response.AlunoResponse;
-import com.ifma.frequencia.api.dto.response.PessoaResponse;
 import com.ifma.frequencia.domain.model.Aluno;
-import com.ifma.frequencia.domain.model.Pessoa;
+import com.ifma.frequencia.domain.model.Curso;
+import com.ifma.frequencia.domain.repository.CursoRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -14,27 +16,26 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AlunoMapper {
 
-    private final PessoaMapper pessoaMapper;
-    
+    private final CursoRepository cursoRepository;
+
     public Aluno toEntity(AlunoRequest alunoRequest){
 
-        Pessoa pessoa = pessoaMapper.toEntity(alunoRequest.getPessoa());
-
+        Optional<Curso> optCurso = cursoRepository.findById(alunoRequest.getCurso());
+        Curso curso = optCurso.orElseThrow();
+        
         Aluno aluno = new Aluno();
-        aluno.setPessoa(pessoa);
-        aluno.setMatricula(alunoRequest.getMatricula());
+        aluno.setNome(alunoRequest.getNome());
+        aluno.setCurso(curso);
+        aluno.setCartao(alunoRequest.getCartao());
 
         return aluno;
     }
 
     public AlunoResponse toResponse(Aluno aluno){
-
-        PessoaResponse pessoa = pessoaMapper.toResponse(aluno.getPessoa());
-
         AlunoResponse alunoResponse = new AlunoResponse();
-        alunoResponse.setPessoa(pessoa);
-        alunoResponse.setMatricula(aluno.getMatricula());
-        
+        alunoResponse.setNome(aluno.getNome());
+        alunoResponse.setCurso(aluno.getCurso().getNome());
+        alunoResponse.setCartao(aluno.getCartao());
         return alunoResponse;
     }
 }

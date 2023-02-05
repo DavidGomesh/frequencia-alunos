@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class AlunoRequest {
 
-    @NotNull
-    private PessoaRequest pessoa;
-
     @NotBlank
-    private String matricula;
+    private String nome;
+
+    @NotNull
+    private Integer curso;
     
     @NotNull
     private String cartao;

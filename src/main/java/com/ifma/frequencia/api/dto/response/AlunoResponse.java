@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class AlunoResponse {
-    private PessoaResponse pessoa;
-    private String matricula;
+    private String nome;
+    private String curso;
+    private String cartao;
 }
