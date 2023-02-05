@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
@@ -29,7 +30,7 @@ public class Aluno {
     private Curso curso;
 
     @NotNull
-    @ManyToOne
+    @OneToOne 
     @JoinColumn(name = "fk_cartao")
     private Cartao cartao;
 }
