@@ -21,4 +21,8 @@ public class Duracao {
         this.milisegundos = duracao.toMillis() % 1000;
         this.duration = duracao;
     }
+
+    public String toText(){
+        return horas + ":" + minutos + ":" + segundos;
+    }
 }

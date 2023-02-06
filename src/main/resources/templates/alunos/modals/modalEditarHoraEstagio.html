@@ -1,0 +1,50 @@
+
+<div class="modal fade" id="modalEditarHoraEstagio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="modalEditarHoraEstagio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="idHorasEstagio" name="idHorasEstagio">
+                <form id="form-horas" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+                                <input class="form-control" type="time" id="horaEntrada" name="horaEntrada" step="1" required>
+                                <label for="horaEntrada">Entrada</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Campo obrigatório!</div>
+                            </div>
+                        </div>
+    
+                        <div class="col-6">
+                            <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
+                                <input class="form-control" type="time" id="horaSaida" name="horaSaida" step="1">
+                                <label for="horaSaida">Saída</label>
+                                <div class="valid-feedback">Tudo ok!</div>
+                                <div class="invalid-feedback">Preencha corretamente!</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div class="col">
+                        <strong>Horas totais: </strong> <span id="horasTotais">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarEdicaoHorasEstagio">Salvar alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/alunos/detalhes-horas-estagio.js}" defer></script>
+</div>

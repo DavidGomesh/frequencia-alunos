@@ -33,6 +33,7 @@ public class AlunoMapper {
 
     public AlunoResponse toResponse(Aluno aluno){
         AlunoResponse alunoResponse = new AlunoResponse();
+        alunoResponse.setIdAluno(aluno.getIdAluno());
         alunoResponse.setNome(aluno.getNome());
         alunoResponse.setCurso(aluno.getCurso().getNome());
         alunoResponse.setCartao(aluno.getCartao());
