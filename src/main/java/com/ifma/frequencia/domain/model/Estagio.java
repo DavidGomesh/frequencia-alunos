@@ -1,7 +1,7 @@
 package com.ifma.frequencia.domain.model;
 
 import java.time.Duration;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,14 +36,14 @@ public class Estagio {
     private Boolean ativo = true;
 
     @OneToMany(mappedBy = "estagio", fetch = FetchType.EAGER)
-    private Set<HorasEstagio> horasEstagio;
+    private List<HorasEstagio> horasEstagio;
 
     @Transactional
     public Duracao horasTotais(){
         return new Duracao(
             Duration.ofMillis(horasEstagio.stream()
                 .filter(horas -> horas.getHoraFim() != null)
-                .mapToLong(horas -> horas.horasTotais().toMillis())
+                .mapToLong(horas -> horas.horasTotais().getDuration().toMillis())
                 .sum()
             )
         );

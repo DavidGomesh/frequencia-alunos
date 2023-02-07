@@ -26,9 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(formIsValid()){
             loaderStart()
             salvarAluno()
-            .finally(() => {
+            .then(response => {
                 loaderStop()
-                showSuccessAlert()
+                console.log(response);
+                if(response.status != 500){
+                    showSuccessAlert()
+                }else{
+                    showFailAlert()
+                }
             })
         }
     }
@@ -49,10 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const aluno = formAlunoToJson()
         const init = buildResquestInit(aluno)
 
-        return (fetch('/alunos', init)
-            .then(response => response.json())
-            .catch(error => console.error(error))
-        )
+        return (fetch('/alunos', init))
     }
 
     // Form To Json
@@ -82,6 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if(result.isConfirmed){
                 location.replace('/')
             }
+        })
+    }
+
+    function showFailAlert(){
+        Swal.fire({
+            icon: 'error',
+            title: 'Cartão já cadastrado!',
         })
     }
 })

@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${estagio.aluno.nome}</td>
                     <td>${estagio.aluno.curso}</td>
                     <td class="fw-bold">${tdHorasTotais(estagio.horasTotais)}</td>
+                    <td class="fw-bold">
+                    <a href="/app/alunos/${estagio.aluno.idAluno}/estagios" class="btn btn-primary btn-xs">
+                        <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z" fill="currentColor" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;"></path>                                <path opacity="0.4" d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z" fill="currentColor" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;"></path>
+                        </svg>
+                        Detalhes
+                    </a>
+                    </td>
                 </tr>`
             }, '')
         }
@@ -52,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return number.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
         }
     }
-    
+
     function preparartabelaLogs(){
 
         const socket = new SockJS('/mywebsockets')
@@ -66,22 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tabelaLogs = document.querySelector('#tabela-logs>tbody')
         const btnAtualizar = document.querySelector('#btn-atualizar')
-    
-        // Atualiza a tabela 
+
+        // Atualiza a tabela
         atualizarTabelaLogs()
-        
+
         // Botão de Atualizar
         btnAtualizar.addEventListener('click', () => {
             atualizarTabelaLogs()
         })
-    
+
         // Atualiza a tabela
         function atualizarTabelaLogs(){
             fetch('/logs/ultimos')
             .then(response => response.json())
             .then(logs => tabelaLogs.innerHTML = construirTabela(logs))
         }
-    
+
         // Constroi a tabela
         function construirTabela(logs = []){
             return logs.reduce((prevTr, log) => {
@@ -95,13 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 </tr>`
             }, '')
         }
-    
+
         // Cria o TD da Data e Hora
         function tdDataHora(dataHora){
             const date = new Date(dataHora)
             return date.toLocaleString('pt-BR')
         }
-    
+
         // Cria o TD do Modo de Operação
         function tdModoOperacao(modo){
             const modos = {
@@ -110,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return modos[modo]
         }
-    
+
         // Cria o TD de pessoa
         function tdPessoa(pessoa, codigo){
             return pessoa || `

@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.ifma.frequencia.domain.exception.HoraFinalNotDefinedException;
+import com.ifma.frequencia.domain.utils.Duracao;
 
 import lombok.Data;
 
@@ -36,12 +36,12 @@ public class HorasEstagio {
     private LocalTime horaInicio;
     private LocalTime horaFim;
 
-    public Duration horasTotais(){
+    public Duracao horasTotais(){
         try{
-            return Duration.between(horaInicio, horaFim);
+            return new Duracao(Duration.between(horaInicio, horaFim));
 
         }catch(Exception e){
-            throw new HoraFinalNotDefinedException();
+            return null;
         }
     }
 }

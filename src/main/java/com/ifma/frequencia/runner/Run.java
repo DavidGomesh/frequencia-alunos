@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.ifma.frequencia.domain.enumerate.ModoOperacao;
 import com.ifma.frequencia.domain.enumerate.TipoMicro;
 import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Curso;
@@ -57,6 +58,7 @@ public class Run implements CommandLineRunner {
         // ===================================== 
         // MICROCONTROLADORES
         Micro micro1 = new Micro();
+        micro1.setModoOperacao(ModoOperacao.CONTAGEM_HORAS);
         micro1.setLocalizacao(sala1);
 
         Micro micro2 = new Micro();
@@ -69,13 +71,13 @@ public class Run implements CommandLineRunner {
         // ===================================== 
         // CURSOS
         Curso curso1 = new Curso();
-        curso1.setNome("Técnico em Informática");
+        curso1.setNome("Téc. em Informática");
 
         Curso curso2 = new Curso();
-        curso2.setNome("Técnico em Química");
+        curso2.setNome("Téc. em Química");
 
         Curso curso3 = new Curso();
-        curso3.setNome("Graduação em Sistemas de Informação");
+        curso3.setNome("Grad. em Sistemas de Informação");
 
         cursoRepository.save(curso1);
         cursoRepository.save(curso2);
@@ -117,14 +119,14 @@ public class Run implements CommandLineRunner {
 
         HorasEstagio horasEstagio1 = new HorasEstagio();
         horasEstagio1.setEstagio(estagio);
-        horasEstagio1.setDataRegistro(LocalDate.now().plusDays(1));
+        horasEstagio1.setDataRegistro(LocalDate.now().minusDays(1));
         horasEstagio1.setHoraInicio(LocalTime.now());
         horasEstagio1.setHoraFim(LocalTime.now().plusHours(4).plusMinutes(21).plusSeconds(32));
         horasEstagioRepository.save(horasEstagio1);
 
         HorasEstagio horasEstagio2 = new HorasEstagio();
         horasEstagio2.setEstagio(estagio);
-        horasEstagio2.setDataRegistro(LocalDate.now().plusDays(2));
+        horasEstagio2.setDataRegistro(LocalDate.now().minusDays(2));
         horasEstagio2.setHoraInicio(LocalTime.now());
         horasEstagio2.setHoraFim(LocalTime.now().plusHours(1).plusMinutes(00).plusSeconds(1));
         horasEstagioRepository.save(horasEstagio2);
