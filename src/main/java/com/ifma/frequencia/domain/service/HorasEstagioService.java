@@ -41,4 +41,12 @@ public class HorasEstagioService {
 
         return horasEstagioRepository.save(horasEstagio);
     }
+
+    public HorasEstagio atualizar(HorasEstagio horasEstagio, HorasEstagio horasEstagioAtualizadas){
+
+        horasEstagio.setHoraInicio(horasEstagioAtualizadas.getHoraInicio());
+        horasEstagio.setHoraFim(horasEstagioAtualizadas.getHoraFim());
+        
+        return horasEstagioRepository.save(horasEstagio);
+    }
 }

@@ -2,7 +2,6 @@ package com.ifma.frequencia.domain.model;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
