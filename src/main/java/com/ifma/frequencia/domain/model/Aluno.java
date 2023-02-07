@@ -1,5 +1,6 @@
 package com.ifma.frequencia.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,5 +30,6 @@ public class Aluno {
     private Curso curso;
 
     @NotBlank
+    @Column(unique = true)
     private String cartao;
 }
