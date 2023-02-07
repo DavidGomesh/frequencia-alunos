@@ -30,6 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
         salvarHoras().then(() => location.reload())
     })
 
+    const btnExcluirHorasEstagio = document.querySelectorAll('.btnExcluirHorasEstagio')
+    btnExcluirHorasEstagio.forEach(btn => { btn.addEventListener('click', function(){
+        const idHorasEstagio = btn.dataset['idHorasEstagio']
+        Swal.fire({
+            icon: 'warning',
+            title: 'Excluir horas?',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não'
+        }).then((result) => {
+            if(result.isConfirmed){
+                fetch('/horas-estagio/' + idHorasEstagio, {method: 'DELETE'}).then(() => {
+                    location.reload()
+                })
+            }
+        })
+    })})
+
     function preparModal(btn){
 
         document.querySelector('#idHorasEstagio').value = btn.dataset['idHorasEstagio']
