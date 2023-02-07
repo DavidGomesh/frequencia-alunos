@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnSalvar = document.querySelector('#btnSalvarEdicaoHorasEstagio')
     btnSalvar.addEventListener('click', () => {
-        salvarHoras()
+        salvarHoras().then(() => location.reload())
     })
 
     function preparModal(btn){
@@ -74,11 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if(validarForm()){
             const horas = formHorasToJson()
             const init = buildResquestInit(horas)
-            fetch('/horas-estagio/' + idHorasEstagio, init)
-            .then(response => response.json())
-            .catch(error => console.error(error))
-            
+            return (fetch('/horas-estagio/' + idHorasEstagio, init)
+                .then(response => response.json())
+                .catch(error => console.error(error))
+            )
         }
+
+        return Promise.reject()
     }
 
     // Validar

@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Atualizar Horas de Estágio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
-                                <input class="form-control" type="time" id="horaEntrada" name="horaEntrada" step="1" required>
+                                <input class="form-control" type="time" id="horaEntrada" name="horaInicio" step="1" required>
                                 <label for="horaEntrada">Entrada</label>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Campo obrigatório!</div>
@@ -23,7 +23,7 @@
     
                         <div class="col-6">
                             <div class="mb-3 form-floating custom-form-floating custom-form-floating-sm form-group">
-                                <input class="form-control" type="time" id="horaSaida" name="horaSaida" step="1">
+                                <input class="form-control" type="time" id="horaSaida" name="horaFim" step="1">
                                 <label for="horaSaida">Saída</label>
                                 <div class="valid-feedback">Tudo ok!</div>
                                 <div class="invalid-feedback">Preencha corretamente!</div>
@@ -32,11 +32,11 @@
                     </div>
                 </form>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col">
                         <strong>Horas totais: </strong> <span id="horasTotais">00:00:00</span>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="modal-footer">
