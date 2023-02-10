@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Run implements CommandLineRunner {
 
-    private final Boolean run = true;
+    private final Boolean run = false;
 
     private final MicroService microService;
 
