@@ -15,4 +15,5 @@ public interface HorasEstagioRepository extends
     HorasEstagioQuery {
     
     List<HorasEstagio> findByEstagio(Estagio estagio);
+    List<HorasEstagio> findByEstagioOrderByDataRegistroDesc(Estagio estagio);
 }

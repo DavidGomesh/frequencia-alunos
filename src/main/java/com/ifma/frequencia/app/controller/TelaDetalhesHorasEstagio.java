@@ -13,6 +13,7 @@ import com.ifma.frequencia.domain.model.Aluno;
 import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.HorasEstagio;
 import com.ifma.frequencia.domain.repository.EstagioRespository;
+import com.ifma.frequencia.domain.repository.HorasEstagioRepository;
 import com.ifma.frequencia.domain.utils.Duracao;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.AllArgsConstructor;
 public class TelaDetalhesHorasEstagio {
 
     private final EstagioRespository estagioRespository;
+    private final HorasEstagioRepository horasEstagioRepository;
 
     @GetMapping("{aluno}/estagios")
     public ModelAndView telaDetalhes(@PathVariable(name = "aluno") Aluno aluno){
@@ -30,7 +32,7 @@ public class TelaDetalhesHorasEstagio {
         Optional<Estagio> optEstagio = estagioRespository.findByAluno(aluno);
         Estagio estagio = optEstagio.orElseThrow();
         Duracao horasTotais = estagio.horasTotais();
-        List<HorasEstagio> horasEstagio = estagio.getHorasEstagio();
+        List<HorasEstagio> horasEstagio = horasEstagioRepository.findByEstagioOrderByDataRegistroDesc(estagio);
 
         ModelAndView mv = new ModelAndView("alunos/detalhes-horas-estagio");
         mv.addObject("pageTitle", "Detalhes de Estágio");

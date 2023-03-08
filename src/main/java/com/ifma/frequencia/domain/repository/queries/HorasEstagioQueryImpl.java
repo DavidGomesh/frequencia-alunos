@@ -2,6 +2,7 @@ package com.ifma.frequencia.domain.repository.queries;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.HorasEstagio;
