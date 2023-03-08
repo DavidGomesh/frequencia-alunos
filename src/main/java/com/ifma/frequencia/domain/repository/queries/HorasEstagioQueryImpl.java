@@ -2,7 +2,6 @@ package com.ifma.frequencia.domain.repository.queries;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.HorasEstagio;
@@ -18,17 +17,17 @@ public class HorasEstagioQueryImpl implements HorasEstagioQuery {
     private final JPAQueryFactory jpaQueryFactory;
     
     @Override
-    public Optional<HorasEstagio> buscarHorasAtuais(Estagio estagio) {
+    public List<HorasEstagio> buscarHorasAtuais(Estagio estagio) {
 
         QHorasEstagio qHorasEstagio = QHorasEstagio.horasEstagio;
         JPAQuery<HorasEstagio> query = (jpaQueryFactory
             .select(qHorasEstagio).from(qHorasEstagio)
             .where(qHorasEstagio.estagio.eq(estagio))
             .where(qHorasEstagio.dataRegistro.eq(LocalDate.now()))
+            .orderBy(qHorasEstagio.dataRegistro.desc())
         );
 
-        HorasEstagio horasEstagio = query.fetchOne();
-        return Optional.ofNullable(horasEstagio);
+        return query.fetch();
     }
 
     @Override

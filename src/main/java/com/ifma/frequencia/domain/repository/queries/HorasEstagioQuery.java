@@ -1,7 +1,6 @@
 package com.ifma.frequencia.domain.repository.queries;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.ifma.frequencia.domain.model.Estagio;
 import com.ifma.frequencia.domain.model.HorasEstagio;
@@ -13,7 +12,7 @@ public interface HorasEstagioQuery {
      * @param estagio
      * @return
      */
-    public Optional<HorasEstagio> buscarHorasAtuais(Estagio estagio);
+    public List<HorasEstagio> buscarHorasAtuais(Estagio estagio);
 
     /**
      * Busca todas as horas registradas
