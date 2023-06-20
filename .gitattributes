@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+src/main/resources/static/hope-ui/* linguist-vendored
+src/main/resources/static/vendors/* linguist-vendored
